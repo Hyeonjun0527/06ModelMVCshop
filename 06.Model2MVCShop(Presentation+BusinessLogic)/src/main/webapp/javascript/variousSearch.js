@@ -1,5 +1,5 @@
 console.log("1번째줄")
-console.log(type); // 서버로부터 받은 'type' 값 로그 출력
+//console.log(type); // 서버로부터 받은 'type' 값 로그 출력
 
 // 동적으로 'id'를 구성하여 해당 요소 선택
 if(type !== ''){
@@ -33,6 +33,12 @@ function fncGetList(currentPage) {
 	console.log(typeof(searchBoundEnd));
 
 
+	console.log("type값은 뭘가요?");
+	console.log("type :: ",type);
+	if(type===''){
+		console.log("type은 undefined");
+		type=`1`;
+	}
 
 	if(document.getElementById("searchBoundFirst").value !== '' && document.getElementById("searchBoundEnd").value !== ''){
 		console.log("if 1번째 실행");

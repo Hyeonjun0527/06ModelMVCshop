@@ -31,7 +31,7 @@ ${requestScope.search} --%>
 	
 	<div style="width: 98%; margin-left: 10px;">
 <%--이 폼태그를 전달하는 건 1,2,3,4클릭이나 검색할때만임. --%>
-		<form id="detailForm" name="detailForm" action="/createLike.do?menu=${param.menu}"  method="post">
+		<form id="detailForm" name="detailForm" action="/cookie/createLike?menu=${param.menu}"  method="post">
 
 			<table width="100%" height="37" border="0" cellpadding="0"
 				cellspacing="0">
@@ -103,7 +103,7 @@ ${requestScope.search} --%>
 					<tr class="ct_list_pop">
 								<td align="center">		<button style="border: 0px; padding: 0px;">
 		<div style="text-align: center;">
-			<a href="/removeLike.do?count=one&navigationPage=createLike.do&prodNo=${product.prodNo }"
+			<a href="/cookie/removeLike?count=one&navigationPage=createLike&prodNo=${product.prodNo }"
 				style="display: inline-block; background-color: #4CAF50; color: white; padding: 7px 10px; text-align: center; text-decoration: none; font-size: 8px; border-radius: 5px; cursor: pointer;">
 				삭제</a>
 		</div>
@@ -113,7 +113,7 @@ ${requestScope.search} --%>
 									<td align="left">${product.prodName}</td>
 								</c:if>
 								<c:if test="${product.proTranCode=='a'}">
-									<td align="left"><a href="/getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a></td>
+									<td align="left"><a href="/product/getProduct?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a></td>
 								</c:if>
 								<td></td>
 								<td align="left">${product.price }</td>
@@ -133,7 +133,7 @@ ${requestScope.search} --%>
 										<c:set var="resultC" value="${product.proTranCode.trim() == 'c' ? '배송중' : ''}"/>
 										<c:set var="resultD" value="${product.proTranCode.trim() == 'd' ? '배송완료' : ''}"/>
 										
-								<td align="left">${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}<a href="/updateTranCode.do?prodNo=${product.prodNo}&navigationPage=listProduct.do&menu=manage">${resultB2}</a>${resultC}${resultD}</td>
+								<td align="left">${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}<a href="/purchase/updateTranCode?prodNo=${product.prodNo}&navigationPage=listProduct&menu=manage">${resultB2}</a>${resultC}${resultD}</td>
 								</c:if>
 						<tr/>
 						<tr>
@@ -150,7 +150,7 @@ ${requestScope.search} --%>
 				<tr>
 		<td align="center">
 		
-		   <input type="hidden" id="currentPage" name="currentPage" value=""/>
+		   < type="hidden" id="currentPage" name="currentPage" value=""/>
 
 			<jsp:include page = "../common/pageNavigator.jsp"/>
 		
@@ -165,7 +165,7 @@ ${requestScope.search} --%>
 	</div>
 		<button style="border: 0px; padding: 0px;">
 		<div style="text-align: center;">
-			<a href="/removeLike.do?count=all&navigationPage=createLike.do"
+			<a href="/cookie/removeLike?count=all&navigationPage=createLike"
 				style="display: inline-block; background-color: #4CAF50; color: white; padding: 7px 10px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 5px; cursor: pointer;">전체
 				삭제</a>
 		</div>

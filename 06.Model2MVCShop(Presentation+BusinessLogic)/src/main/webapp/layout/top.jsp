@@ -2,10 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.model2.mvc.service.domain.User" %>
 
-<%
-	User user=(User)session.getAttribute("user");
-%>
-
 <html>
 <head>
 <title>Model2 MVC Shop</title>
@@ -36,7 +32,7 @@
 	          <td width="14">&nbsp;</td>
 	          <td width="56">
 	          <c:if test="${!empty user}">
-		            	<a href="/logout.do" target="_parent">logout</a>  
+		            	<a href="/user/logout" target="_parent">logout</a>
 			  </c:if>
 	          </td>
 	        </tr>

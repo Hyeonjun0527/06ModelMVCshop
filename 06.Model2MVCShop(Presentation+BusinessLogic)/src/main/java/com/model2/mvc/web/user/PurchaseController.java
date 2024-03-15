@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +21,7 @@ import javax.websocket.Session;
 import java.util.*;
 
 @Controller
+@RequestMapping("/purchase/*")
 public class PurchaseController {
 
     ///Field
@@ -63,23 +62,25 @@ public class PurchaseController {
     }
 
     ///Method
-    @RequestMapping("/addPurchase.do")
+    @PostMapping("/addPurchase")
     public ModelAndView addPurchase(@ModelAttribute("purchase") Purchase purchase,
                                     @RequestParam("prodNo") int prodNo,
+                                    @RequestParam("receiverPhone") String receiverPhone,
                                     HttpSession session) throws Exception {
-        System.out.println("/addPurchase.do");
+        System.out.println(receiverPhone);
+        System.out.println("/addPurchase");
         System.out.println("purchase값 ::"+purchase);
 
         User user = (User)session.getAttribute("user");
 
-        System.out.println("prodNO값 :: "+prodNo);
         Product product = productService.getProduct(prodNo);
-        System.out.println("Product값 :: "+product);
         purchase.setBuyer(user);
         purchase.setPurchaseProd(product);
         purchase.setTranCode("b");
 
-
+        System.out.println("prodNO값 :: "+prodNo);
+        System.out.println("Product값 :: "+product);
+        System.out.println("Purchase값 :: "+purchase);
         purchaseService.addPurchase(purchase);
 
         return new ModelAndView(
@@ -87,9 +88,9 @@ public class PurchaseController {
                 , Collections.singletonMap("purchase", purchase));
 
     }
-    @RequestMapping("/addPurchaseView.do")
+    @GetMapping("/addPurchase")
     public ModelAndView addPurchaseView(@RequestParam("prodNo") int prodNo) throws Exception {
-        System.out.println("/addPurchaseView.do");
+        System.out.println("/addPurchaseView");
 
         Map<String, Object> model = new HashMap<>();
         model.put("product", productService.getProduct(prodNo));
@@ -99,10 +100,10 @@ public class PurchaseController {
                 model);
     }
 
-    @RequestMapping("/getPurchase.do")
+    @RequestMapping("/getPurchase")
     public ModelAndView getPurchase(@RequestParam("tranNo") int tranNo,
                                     @RequestParam("menu") String menu) throws Exception {
-        System.out.println("/getPurchase.do");
+        System.out.println("/getPurchase");
 
         Purchase purchase = purchaseService.getPurchase(tranNo);
 
@@ -114,18 +115,18 @@ public class PurchaseController {
         if(menu.equals("ok")){
             viewName = "forward:/purchase/getPurchase.jsp";
         }else{
-            viewName = "forward:/updatePurchaseView.do";
+            viewName = "forward:/purchase/updatePurchase";
 
         }
         return new ModelAndView(viewName, model);
     }
-    @RequestMapping("/listPurchase.do")
+    @RequestMapping("/listPurchase")
     public ModelAndView listPurchase(HttpSession session,
                                      @ModelAttribute("search") Search search,
                                      @ModelAttribute("purchase") Purchase purchase,
                                      @RequestParam("menu") String menu
                                      ) throws Exception {
-        System.out.println("/listPurchase.do 시작합니다...");
+        System.out.println("/listPurchase 시작합니다...");
         User user = (User) session.getAttribute("user");
 
 
@@ -178,18 +179,18 @@ public class PurchaseController {
         model.put("resultPage", resultPage);
         //model.put("search", search);
 
-        System.out.println("listPurchase.do :: 가 끝났습니다..");
+        System.out.println("listPurchase :: 가 끝났습니다..");
 
         return new ModelAndView(
                 "forward:/purchase/listPurchase.jsp",
                 model);
     }
 
-    @RequestMapping("/updatePurchase.do")
+    @PostMapping("/updatePurchase")
     public ModelAndView updatePurchase(@RequestParam("tranNo") int tranNo,
                                        @RequestParam("prodNo") int prodNo,
                                        @ModelAttribute("purchase") Purchase lastPurchase) throws Exception {
-        System.out.println("/updatePurchase.do가 시작됩니다...");
+        System.out.println("/updatePurchase가 시작됩니다...");
 
         Purchase purchase = purchaseService.getPurchase(tranNo);
 
@@ -204,7 +205,7 @@ public class PurchaseController {
         purchase = purchaseService.updatePurchase(purchase);
         System.out.println("업데이트 완료 :: " + purchase);
 
-        System.out.println("/updatePurchase.do가 끝났습니다...");
+        System.out.println("/updatePurchase가 끝났습니다...");
 
         Map<String,Object> map = new HashMap<>();
         map.put("purchase", purchase);
@@ -213,29 +214,29 @@ public class PurchaseController {
 
 
         return new ModelAndView(
-                "redirect:/getPurchase.do",
+                "redirect:/purchase/getPurchase",
                 map);
 
     }
-    @RequestMapping("/updatePurchaseView.do")
+    @GetMapping("/updatePurchase")
     public ModelAndView updatePurchaseView(@ModelAttribute("purchase") Purchase purchase,
                                            @RequestParam("menu") String menu) throws Exception {
-        System.out.println("/updatePurchaseView.do가 시작됩니다...");
+        System.out.println("/updatePurchaseView가 시작됩니다...");
 
 
-        System.out.println("updatePurchaseView.do가 끝났습니다...");
+        System.out.println("updatePurchaseView가 끝났습니다...");
         return new ModelAndView(
                 "forward:/product/updateProduct.jsp",
                 Collections.singletonMap("purchase", purchase));
     }
-    @RequestMapping("/updateTranCode.do")
+    @RequestMapping("/updateTranCode")
     public ModelAndView updateTranCode(@RequestParam("prodNo") int prodNo,
                                        @RequestParam("navigationPage") String navigationPage,
                                        @RequestParam("menu") String menu) throws Exception {
-        System.out.println("/updateTranCode.do가 시작됩니다...");
+        System.out.println("/updateTranCode가 시작됩니다...");
 
         Purchase purchase = purchaseService.getPurchase(prodNo);
-        System.out.println("updateTranCode.do :: 여기서 " + purchase);
+        System.out.println("updateTranCode :: 여기서 " + purchase);
 
         if (CommonUtil.null2str(purchase.getTranCode()).equals("b")) {
             System.out.println("b실행됨");
@@ -252,18 +253,18 @@ public class PurchaseController {
         Map<String,Object> map = new HashMap<>();
         map.put("menu", menu);
 
-        System.out.println("updateTranCode.do가 끝났습니다...");
+        System.out.println("updateTranCode가 끝났습니다...");
 
-        if(navigationPage.equals("listProduct.do")) {
+        if(navigationPage.equals("listProduct")) {
             if(menu.equals("manage")) {
-                System.out.println( "redirect:/listProduct.do?menu=manage"+"합니다.");
-                viewName = "redirect:/listProduct.do?menu=manage";
+                System.out.println( "redirect:/purchase/listProduct?menu=manage"+"합니다.");
+                viewName = "redirect:/purchase/listProduct?menu=manage";
             }
-        }else if(navigationPage.equals("listPurchase.do")){
+        }else if(navigationPage.equals("listPurchase")){
 
             if(menu.equals("search")) {
-                System.out.println("redirect:/listPurchase.do?menu=search"+"합니다.");
-                viewName =  "redirect:/listPurchase.do?menu=search";
+                System.out.println("redirect:/listPurchase?menu=search"+"합니다.");
+                viewName =  "redirect:/purchase/listPurchase?menu=search";
             }
         }else {
 

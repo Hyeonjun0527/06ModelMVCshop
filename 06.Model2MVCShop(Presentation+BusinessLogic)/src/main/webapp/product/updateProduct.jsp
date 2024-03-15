@@ -35,7 +35,7 @@ function fncAddProduct(){
 		alert("가격은 반드시 입력하셔야 합니다.");
 		return;
 	}
-	document.detailForm.action='/updateProduct.do';
+	document.detailForm.action='/product/updateProduct';
 	<%--여기에 ${requestScope.product.prodNo} 마렵지? 어케해? form태그 안에 인풋하나 히든으로 만들어서 파라미터 보내라ㅋ--%>
 	document.detailForm.submit();
 }
@@ -45,7 +45,7 @@ function fncAddProduct(){
 
 <body bgcolor="#ffffff" text="#000000">
 
-<form name="detailForm" method="post" >
+<form name="detailForm" method="post" enctype="multipart/form-data" >
 
 <input type="hidden" name="prodNo"  value="${requestScope.product.prodNo}">
 
@@ -136,8 +136,8 @@ function fncAddProduct(){
 		<td width="104" class="ct_write">상품이미지</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input	type="text" name="fileName" class="ct_input_g" 
-						style="width: 200px; height: 19px" maxLength="13" value="${requestScope.product.fileName}"/>
+			<input	type="file" name="file" class="ct_input_g"
+						style="width: 200px; height: 19px" maxLength="13"/>
 		</td>
 	</tr>
 	<tr>
