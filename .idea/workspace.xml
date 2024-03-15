@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7c9ed0cd-706b-4a94-87d5-484ea842eda5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/06.Model2MVCShop(Presentation+BusinessLogic).iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/common/aspect/LogAspectJ.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/common/aspect/LogAspectJ.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/common/web/LogonCheckInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/common/web/LogonCheckInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/mapper/PurchaseMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/mapper/PurchaseMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/product/impl/ProductDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/product/impl/ProductDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/product/impl/ProductServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/product/impl/ProductServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/purchase/impl/PurchaseDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/purchase/impl/PurchaseDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/purchase/impl/PurchaseServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/purchase/impl/PurchaseServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/user/impl/UserDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/user/impl/UserDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/user/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/user/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/user/test/UserServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/service/user/test/UserServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/web/user/CookieController.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/web/user/CookieController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/web/user/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/web/user/ProductController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/web/user/PurchaseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/web/user/PurchaseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/web/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/06.Model2MVCShop(Presentation+BusinessLogic)/build/classes/com/model2/mvc/web/user/UserController.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2dchDKN4eRxFyhmF9BvFnE0VzFi" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="compactDirectories" value="true" />
+    <option name="flattenPackages" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showModules" value="false" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "new/dev",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/osuma/git/06ModelMVCshop/06.Model2MVCShop(Presentation+BusinessLogic)",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15917969",
+    "project.structure.side.proportion": "0.19983137",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "application.passwordSafe",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Tomcat 9.0.58" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.58" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="06.Model2MVCShop(Presentation+BusinessLogic):Web exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/06_Model2MVCShop_Presentation_BusinessLogic__Web_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="be7729f5-e90c-4914-9a32-cf90774bb340" />
+        <option name="HTTP_PORT" value="8888" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="64490" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7c9ed0cd-706b-4a94-87d5-484ea842eda5" name="Changes" comment="" />
+      <created>1710313153122</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710313153122</updated>
+      <workItem from="1710313154190" duration="489000" />
+      <workItem from="1710313662928" duration="335000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
