@@ -20,7 +20,7 @@
 
 	<div style="width: 98%; margin-left: 10px;">
 
-		<form name="detailForm" action="/listPurchase.do?menu=${param.menu}"
+		<form name="detailForm" action="/purchase/listPurchase?menu=${param.menu}"
 			method="post">
 
 			<table width="100%" height="37" border="0" cellpadding="0"
@@ -68,12 +68,12 @@
 					<tr class="ct_list_pop">
 						<td align="center">
 						<c:if test="${purchase.tranNo!=0 }">
-						<a href="/getPurchase.do?tranNo=${purchase.tranNo}">${purchase.tranNo}</a>
+						<a href="/purchase/getPurchase?tranNo=${purchase.tranNo}">${purchase.tranNo}</a>
 						</c:if>
 						</td>
 						<td></td>
 						<td align="left">
-						<a href="/getUser.do?userId=${purchase.buyer.userId}">${purchase.buyer.userId}</a>
+						<a href="/user/getUser?userId=${purchase.buyer.userId}">${purchase.buyer.userId}</a>
 						</td>
 						<td></td>
 						<td align="left">${purchase.receiverName}</td>
@@ -98,14 +98,14 @@
 
 <%--현재 ${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''} --%>
 							<td align="left">현재 ${resultA}${resultB}<a
-								href="/updateTranCode.do?prodNo=${purchase.purchaseProd.prodNo}">${resultB2}</a>${resultC}${resultD}
+								href="/purchase/updateTranCode?prodNo=${purchase.purchaseProd.prodNo}">${resultB2}</a>${resultC}${resultD}
 								상태입니다.
 							</td>
 						</c:if>
 						<td></td>
 						<td align="left"><c:if test="${! empty purchase.tranCode}">
 								<c:if test="${purchase.tranCode.trim() == 'c'}">
-									<a href="/updateTranCode.do?prodNo=${purchase.purchaseProd.prodNo}&navigationPage=listPurchase.do&menu=search">물건도착</a>
+									<a href="/purchase/updateTranCode?prodNo=${purchase.purchaseProd.prodNo}&navigationPage=listPurchase&menu=search">물건도착</a>
 									
 								</c:if>
 							</c:if></td>

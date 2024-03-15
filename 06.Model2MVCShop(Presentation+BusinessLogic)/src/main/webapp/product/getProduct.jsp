@@ -1,8 +1,8 @@
 <!-- 상품 상세 조회-->
-<%@ page contentType="text/html; charset=EUC-KR "%>
+<%@ page contentType="text/html; charset=EUC-KR"%>
 <%@ page pageEncoding="EUC-kr" %>
 
-<%-- 
+<%--
 <%
 Product productVO=(Product)request.getAttribute("productVO");
 	session.setAttribute("purchaseProd", productVO);
@@ -14,13 +14,13 @@ Product productVO=(Product)request.getAttribute("productVO");
 <head>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
-
+<link rel="stylesheet" href="/css/styling.css" type="text/css">
 <title>상품상세조회</title>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 
-<form name="detailForm" method="post">
+<form name="detailForm" method="post" enctype="multipart/form-data">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -75,8 +75,7 @@ Product productVO=(Product)request.getAttribute("productVO");
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<img src = "/images/uploadFiles/../../images/empty.GIF"/>
-			${requestScope.product.getFileName()}
+			<img class="max-size" src = "${pageContext.request.contextPath}/images/uploadFiles/${product.getFileName()}"/>
 		</td>
 	</tr>
 	<tr>
@@ -131,7 +130,7 @@ Product productVO=(Product)request.getAttribute("productVO");
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-					<a href="/listProduct.do?menu=manage">확인</a>
+					<a href="/product/listProduct?menu=manage">확인</a>
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
@@ -144,7 +143,7 @@ Product productVO=(Product)request.getAttribute("productVO");
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-					<a href="/addPurchaseView.do?prodNo=${product.prodNo}">구매</a>
+					<a href="/purchase/addPurchase?prodNo=${product.prodNo}">구매</a>
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -170,7 +169,7 @@ Product productVO=(Product)request.getAttribute("productVO");
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
 					
 					
-					<a href="/listProduct.do?menu=manage">확인</a>
+					<a href="/product/listProduct?menu=manage">확인</a>
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>

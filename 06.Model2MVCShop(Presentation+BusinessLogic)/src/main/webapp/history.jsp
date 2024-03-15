@@ -1,43 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<%@ page contentType="text/html; charset=EUC-KR" %>
-
+<%@page import="java.net.URLDecoder"%>
+<%@ page contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--히스토리 있으면 반복하는데 , 링크 반복해서 만드는데 히스토리=prodNo --%>
 <html>
 <head>
-
 <title>열어본 상품 보기</title>
-
 </head>
+
 <body>
 	당신이 열어본 상품을 알고 있다
-<br>
-<br>
-<%
-	request.setCharacterEncoding("euc-kr");
-	response.setCharacterEncoding("euc-kr");
-	String history = null;
-	Cookie[] cookies = request.getCookies();
-	if (cookies!=null && cookies.length > 0) {
-		for (int i = 0; i < cookies.length; i++) {
-			Cookie cookie = cookies[i];
-			if (cookie.getName().equals("history")) {
-				history = cookie.getValue();
-			}
-		}
-		if (history != null) {
-			String[] h = history.split(",");
-			for (int i = 0; i < h.length; i++) {
-				if (!h[i].equals("null")) {
-%>
-<a href="/getProduct.do?prodNo=<%=h[i]%>&menu=search"
-	target="rightFrame"><%=h[i]%></a>
-<br>
-<%
-				}
-			}
-		}
-	}
-%>
+	<br>
+	<br>
+
+	<c:if test="${!empty products}">
+		<c:forEach var="product" items="${products}">
+			<c:if test="${!empty product}">
+				<a href="/product/getProduct?prodNo=${product.prodNo}&menu=search"
+					target="rightFrame">${product.prodName}</a>
+				<br />
+			</c:if>
+		</c:forEach>
+	</c:if>
+
+
+	<button style="border: 0px; padding: 0px;">
+		<div style="text-align: center;">
+			<a href="/cookie/removeHistory?navigationPage=history.jsp"
+				style="display: inline-block; background-color: #4CAF50; color: white; padding: 7px 10px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 5px; cursor: pointer;">쿠키
+				삭제</a>
+		</div>
+	</button>
 
 </body>
 </html>

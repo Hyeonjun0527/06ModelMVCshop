@@ -12,7 +12,7 @@
 
 function fncCreate() {
 	if(FormValidation(document.detailForm) != false) {   
-	    document.detailForm.action="/clientValidationCheck.jsp";
+	    document.detailForm.action="/user/clientValidationCheck.jsp";
 		document.detailForm.submit();
 	}
 }

@@ -24,8 +24,12 @@ function fncUpdateUser() {
 	} else {
 		document.detailForm.phone.value = "";
 	}
-		
-	document.detailForm.action='/updateUser.do';
+	
+	////////////////////////////////////////////////////////////////////////////////////	
+	//document.detailForm.action='/updateUser.do';
+	////////////////////////////////////////////////////////////////////////////////////
+	document.detailForm.action='/user/updateUser';
+	
 	document.detailForm.submit();
 }
 
@@ -96,7 +100,6 @@ function resetData() {
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<%-- <input type="text" name="userName" value="<%=user.getUserName() %>" class="ct_input_g" style="width:100px; height:19px"  maxLength="50" >--%>
 			<input 	type="text" name="userName" value="${user.userName}" class="ct_input_g" 
 							style="width:100px; height:19px"  maxLength="50" >
 		</td>
@@ -110,7 +113,6 @@ function resetData() {
 		<td width="104" class="ct_write">аж╪р</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<%--<input type="text" name="addr" value="<%=user.getAddr() %>" class="ct_input_g" style="width:370px; height:19px"  maxLength="100">--%>
 			<input 	type="text" name="addr" value="${user.addr}" class="ct_input_g" 
 							style="width:370px; height:19px"  maxLength="100">
 		</td>
@@ -126,6 +128,7 @@ function resetData() {
 		<td class="ct_write01">
 			<select name="phone1" class="ct_input_g" style="width:50px; height:25px" 
 							onChange="document.detailForm.phone2.focus();">
+				
 				<option value="010" ${ ! empty user.phone1 && user.phone1 == "010" ? "selected" : ""  } >010</option>
 				<option value="011" ${ ! empty user.phone1 && user.phone1 == "011" ? "selected" : ""  } >011</option>
 				<option value="016" ${ ! empty user.phone1 && user.phone1 == "016" ? "selected" : ""  } >016</option>
@@ -133,6 +136,7 @@ function resetData() {
 				<option value="019" ${ ! empty user.phone1 && user.phone1 == "019" ? "selected" : ""  } >019</option>
 				
 			</select>
+			
 			<input 	type="text" name="phone2" value="${ ! empty user.phone2 ? user.phone2 : ''}" 
 							class="ct_input_g" style="width:100px; height:19px"  maxLength="9" >
 			- 

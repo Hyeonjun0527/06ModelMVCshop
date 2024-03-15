@@ -23,14 +23,12 @@
 	console.log('jsp에서 searchBoundFirst',searchBoundFirst);
 	console.log('jsp에서 searchBoundEnd',searchBoundEnd);
 	console.log('jsp에서 type', type);
-	console.log(typeof(type));
-	console.log(typeof(${search.searchType}));
 
 </script>
 <script type="text/javascript"  src="/javascript/variousSearch.js"></script>
 	<div style="width: 98%; margin-left: 10px;">
 <%--이 폼태그를 전달하는 건 1,2,3,4클릭이나 검색할때만임. --%>
-		<form id="detailForm" name="detailForm" action="/listProduct.do?menu=${menu}"  method="post">
+		<form id="detailForm" name="detailForm" action="/product/listProduct?menu=${menu}"  method="post">
 
 			<table width="100%" height="37" border="0" cellpadding="0"
 				cellspacing="0">
@@ -104,13 +102,13 @@
 			</table>
 <div class="container">
 
-<input type="radio"  id="searchType1"  name="searchType" value="1" onclick="javascript:fncGetList(1);"/>
+<input type="radio"  id="searchType1"  name="searchType" value="1" onclick="javascript:fncGetList('1');"/>
 <label for="searchType1"  class="button">일반 검색</label>
 
-<input type="radio"  id="searchType2"  name="searchType" value="2" onclick="javascript:fncGetList(1);"/>
+<input type="radio"  id="searchType2"  name="searchType" value="2" onclick="javascript:fncGetList('1');"/>
 <label for="searchType2"  class="button">가격 높은순 검색</label>
 
-<input type="radio"  id="searchType3"  name="searchType" value="3" onclick="javascript:fncGetList(1);"/>
+<input type="radio"  id="searchType3"  name="searchType" value="3" onclick="javascript:fncGetList('1');"/>
 <label for="searchType3"  class="button">가격 낮은순 검색</label>
 
 <input type="text"  id="searchBoundFirst"  name="searchBoundFirst" value='${search.searchBoundFirst}'/>
@@ -156,7 +154,7 @@
 									<td align="left">${product.prodName}</td>
 								</c:if>
 								<c:if test="${product.proTranCode=='a'}">
-									<td align="left"><a href="/getProduct.do?prodNo=${product.prodNo}&menu=${menu}">${product.prodName}</a></td>
+									<td align="left"><a href="/product/getProduct?prodNo=${product.prodNo}&menu=${menu}">${product.prodName}</a></td>
 								</c:if>
 								<td></td>
 								<td align="left">${product.price }</td>
@@ -176,10 +174,10 @@
 										<c:set var="resultC" value="${product.proTranCode.trim() == 'c' ? '배송중' : ''}"/>
 										<c:set var="resultD" value="${product.proTranCode.trim() == 'd' ? '배송완료' : ''}"/>
 										
-								<td align="left">${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}<a href="/updateTranCode.do?prodNo=${product.prodNo}&navigationPage=listProduct.do&menu=manage">${resultB2}</a>${resultC}${resultD}</td>
+								<td align="left">${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}<a href="/purchase/updateTranCode?prodNo=${product.prodNo}&navigationPage=listProduct&menu=manage">${resultB2}</a>${resultC}${resultD}</td>
 								</c:if>
 								<td></td>
-								<td><a href="/setLikeProduct.do?prodNo=${product.prodNo}&menu=${menu}&currentPage=${currentPage}">찜하기</a></td>
+								<td><a href="/product/setLikeProduct?prodNo=${product.prodNo}&menu=${menu}&currentPage=${resultPage.currentPage}">찜하기</a></td>
 						<tr/>
 						<tr>
 								<td colspan="11" bgcolor="D6D7D6" height="1"></td>

@@ -37,15 +37,21 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
     public Map<String, Object> getPurchaseList(Map<String,Object> map) throws Exception {
         List<Map<String,Object>> list = purchaseMapper.getPurchaseList(map);
+        List<Purchase> purchaseList = null;
         System.out.println("이게 리스트"+list);
-        int count = ((BigDecimal)list.get(0).get("count")).intValue();
 
-        List<Purchase> purchaseList = new ArrayList<Purchase>();
-        for(Map<String,Object> purchaseMap : list){
-            System.out.println("이게 맵 :: "+purchaseMap.get("purchase"));
-            purchaseList.add((Purchase) purchaseMap.get("purchase"));
+        //리스트가 있으면 카운트를 구한다.
+        int count = 0;
+
+        if(!list.isEmpty()) {
+            count = ((BigDecimal) list.get(0).get("count")).intValue();
+            purchaseList = new ArrayList<Purchase>();
+            for (Map<String, Object> purchaseMap : list) {
+                System.out.println("이게 맵 :: " + purchaseMap.get("purchase"));
+                purchaseList.add((Purchase) purchaseMap.get("purchase"));
+            }
+
         }
-
         Map<String,Object> map2 = new HashMap<String,Object>();
         map2.put("list", purchaseList);
         map2.put("count", count);

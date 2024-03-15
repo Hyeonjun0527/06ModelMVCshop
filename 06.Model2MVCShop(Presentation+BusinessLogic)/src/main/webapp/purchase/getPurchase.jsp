@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 상품 상세 조회-->
 <%@page import="com.model2.mvc.service.domain.Purchase"%>
-<%@ page contentType="text/html; charset=EUC-KR "%>
+<%@ page contentType="text/html; charset=EUC-KR" %>
 <%@ page pageEncoding="EUC-kr" %>
 
 <html>
@@ -11,7 +11,7 @@
 
 <body>
 
-<form name="updatePurchase" action="/updatePurchaseView.do?tranNo=1234321" method="post">
+<form name="updatePurchase" action="/purchase/updatePurchase?tranNo=1234321" method="post">
 
 다음과 같이 구매가 되었습니다.
 
