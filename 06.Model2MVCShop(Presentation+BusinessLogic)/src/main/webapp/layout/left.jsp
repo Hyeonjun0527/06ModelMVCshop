@@ -63,7 +63,7 @@
 
 		<c:if test="${user != null && user.role == 'user'}">
 		<div class="item button">
-			<a href="/cookie/createLike?menu=search" target="rightFrame">찜 리스트</a>
+			<a href="/cookie/createLike?menu=search&from=left.jsp" target="rightFrame">찜 리스트</a>
 		</div>
 		</c:if>
 		<div class="item button">

@@ -22,6 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +56,7 @@ public class ProductController {
     public ProductController() {
         System.out.println(YELLOW);
         System.out.println("생성자 :: " + this.getClass());
+        System.out.println(RESET);
     }
 
     ///Method
@@ -114,14 +117,18 @@ public class ProductController {
     //클라-searchBoundFirst,searchBoundEnd,currentPage,search,menu,products,page
     //currentPage의
     @RequestMapping("/likeProduct")
-    public String likeProduct(@ModelAttribute("products") List<Product> products,
-                              @ModelAttribute("search") Search search,
+    public String likeProduct(@ModelAttribute("search") Search search,
+                              @RequestParam(value = "menu",required = false) String menu,
                               @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
                               @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
-                              @RequestParam("menu") String menu,
-                              Model model) throws Exception {
-        System.out.println("/likeProduct이 시작됩니다..");
+                              Model model,
+                              HttpServletRequest request) throws Exception {
+        //search,searchBoundFirst,End는 스스로 안에서 페이지 이동할때의 경우임.
 
+
+        //@ModelAttribute("products") ArrayList<Product> products
+
+        System.out.println("/likeProduct이 시작됩니다..");
         //바인딩 : 클라-searchBoundFirst, searchBoundEnd > search도메인
 
         if(searchBoundFirst == null || searchBoundEnd == null) {
@@ -143,12 +150,20 @@ public class ProductController {
             currentPage = search.getCurrentPage();
         }
 
-        search.setCurrentPage(currentPage);
+        search.setCurrentPage(currentPage);//current의 default Value를 1로 설정했음.
         search.setPageSize(pageSize);
+
+        //createLike에서 가져옴
+        Map<String,Object> createLikeData = (Map<String, Object>)request.getAttribute("createLikeData");
+
+        //menu,currentPage,products
+        List<Product> products =(List<Product>)(createLikeData.get("products"));
+
+        int productsSize = products != null ? products.size() : 0;
 
         Page page = new Page(
                 currentPage,
-                products.size(),
+                productsSize,
                 pageUnit,
                 pageSize);
 
@@ -156,9 +171,9 @@ public class ProductController {
         System.out.println("products :: " + products);
 
         //Model 과 View 연결
-        model.addAttribute("totalCount", products.size());
-//        model.addAttribute("products",products);
-//        model.addAttribute("search",search);
+        model.addAttribute("totalCount", productsSize);
+        model.addAttribute("products",products);
+        model.addAttribute("search",search);
         model.addAttribute("resultPage", page);
         model.addAttribute("menu", menu);
 
@@ -251,22 +266,28 @@ public class ProductController {
                                  @RequestParam("currentPage") int currentPage,
                                  @CookieValue(name = "like", required = false) String likeCookie,
                                  Model model) throws Exception {
-        System.out.println("/setLikeProduct이 시작됩니다..");
+        System.out.println("/////////////////////////////////////////////////////////////setLikeProduct이 시작됩니다..");
 
 
         //Business Logic
         Product product = productService.getProduct(prodNo);
 
+        //쿠키디버깅 ;
+        if (likeCookie!=null && likeCookie.startsWith(";")) {
+            likeCookie = likeCookie.substring(1);
+        }
 
-        //쿠키있으면 쿠키이름이 like면
+
+        System.out.println("setLikeProduct::likeCookie :: "+likeCookie);
         String[] likeCookies = null;
 
         if (likeCookie != null) {
             likeCookies = likeCookie.split(";");
         } // IF
 
+        System.out.println("setLikeProduct::likeCookies::"+ Arrays.toString(likeCookies));
+
         boolean result = true;
-        
         if(likeCookies!=null) {
             for (String element : likeCookies) {
                 if (element.equals(String.valueOf(product.getProdNo()))) {//같은게 하나라도 있으면 false
@@ -274,18 +295,18 @@ public class ProductController {
                 } // IF
             } // FOR
         }
-        if (result) {//같은게 없으면 true
+        if(result) {//같은게 없으면 true
             CookieUtil.addValue(request, response, "like", String.valueOf(product.getProdNo()));
         }
 
-        model.addAttribute(product);
-        model.addAttribute("menu", menu);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("from", "setLikeProduct");
+        request.setAttribute("currentPage", currentPage);
+        //request.setAttribute("from", "setLikeProduct");
+        //request.setAttribute("product",product);
 
-        System.out.println("/SetLikeProduct이 끝났습니다..");
-        System.out.println("forward:/createLike" + "합니다.");
-        return "forward:/cookie/createLike";
+        System.out.println("//////////////////////////////////////////////////////////////setLikeProduct이 끝났습니다..");
+        System.out.println("forward:/product/listProduct?menu=search" + "합니다.");
+        //어차피 찜리스트는 관리자는 실행할 수 없도록 해놓았음.
+        return "forward:/product/listProduct"+"?currentPage="+currentPage;
     }//end of SetLikeProduct
 
     @PostMapping("/updateProduct")

@@ -68,7 +68,7 @@
 					<tr class="ct_list_pop">
 						<td align="center">
 						<c:if test="${purchase.tranNo!=0 }">
-						<a href="/purchase/getPurchase?tranNo=${purchase.tranNo}">${purchase.tranNo}</a>
+						<a href="/purchase/getPurchase?tranNo=${purchase.tranNo}&menu=${param.menu}">${purchase.tranNo}</a>
 						</c:if>
 						</td>
 						<td></td>

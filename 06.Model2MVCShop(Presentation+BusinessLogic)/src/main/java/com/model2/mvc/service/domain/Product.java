@@ -4,7 +4,8 @@ import java.sql.Date;
 
 
 public class Product {
-	
+	private static final String RESET = "\u001B[0m";
+	private static final String RED = "\u001B[91m";
 	private String fileName;
 	private String manuDate;
 	private int price;
@@ -69,7 +70,7 @@ public class Product {
 
 	// Override
 	public String toString() {
-		return "Product [fileName=" + fileName + ", manuDate=" + manuDate + ",\n price=" + price + ", prodDetail="
+		return RED+"Product"+RESET+ "[fileName=" + fileName + ", manuDate=" + manuDate + ",\n price=" + price + ", prodDetail="
 				+ prodDetail + ", prodName=" + prodName + ", prodNo=" + prodNo + ",\n regDate=" + regDate + ", proTranCode="
 				+ proTranCode + "]";
 	}

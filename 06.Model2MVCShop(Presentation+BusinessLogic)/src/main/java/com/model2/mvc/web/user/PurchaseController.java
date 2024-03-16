@@ -59,6 +59,7 @@ public class PurchaseController {
     public PurchaseController() {
         System.out.println(BLUE);
         System.out.println("\n »ý¼ºÀÚ :: "+this.getClass()+"\n");
+        System.out.println(RESET);
     }
 
     ///Method
