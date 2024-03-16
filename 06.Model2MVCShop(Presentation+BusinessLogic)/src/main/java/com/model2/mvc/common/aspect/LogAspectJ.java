@@ -22,7 +22,7 @@ public class LogAspectJ {
 	//Around  Advice
 	public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
 			
-		System.out.println(RED);
+		System.out.print(RED);
 		System.out.println("[Around before] Å¸°Ù°´Ã¼.¸Þ¼­µå :"+
 													joinPoint.getTarget().getClass().getName() +"."+
 													joinPoint.getSignature().getName());
@@ -33,7 +33,7 @@ public class LogAspectJ {
 		Object obj = joinPoint.proceed();
 
 		System.out.println("[Around after] Å¸°Ù °´Ã¼return value  : "+obj);
-		System.out.println(RESET);
+		System.out.print(RESET);
 		
 		return obj;
 	}

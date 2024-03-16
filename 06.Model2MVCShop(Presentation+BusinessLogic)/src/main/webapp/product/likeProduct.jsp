@@ -21,12 +21,12 @@ ${requestScope.search} --%>
 
 <body bgcolor="#ffffff" text="#000000">
 <script>
-	var type = "${search.searchType}";
-	
-	var searchBoundFirst = ${search.searchBound[0]};
-	var searchBoundEnd = ${search.searchBound[1]};
-	  console.log('searchBoundFirst jsp에서'+ searchBoundFirst);
-	  console.log('searchBoundEnd jsp에서'+searchBoundEnd);
+	let type = '${search.searchType}';//없으면 정말 아무것도 없는 공백이 됨.''가 됨
+	let searchBoundFirst = '${search.searchBoundFirst}';//'0'이 됨
+	let searchBoundEnd = '${search.searchBoundEnd}';
+	console.log('jsp에서 searchBoundFirst',searchBoundFirst);
+	console.log('jsp에서 searchBoundEnd',searchBoundEnd);
+	console.log('jsp에서 type', type);
 	</script>
 	
 	<div style="width: 98%; margin-left: 10px;">
@@ -103,7 +103,7 @@ ${requestScope.search} --%>
 					<tr class="ct_list_pop">
 								<td align="center">		<button style="border: 0px; padding: 0px;">
 		<div style="text-align: center;">
-			<a href="/cookie/removeLike?count=one&navigationPage=createLike&prodNo=${product.prodNo }"
+			<a href="/cookie/removeLike?count=one&prodNo=${product.prodNo}"
 				style="display: inline-block; background-color: #4CAF50; color: white; padding: 7px 10px; text-align: center; text-decoration: none; font-size: 8px; border-radius: 5px; cursor: pointer;">
 				삭제</a>
 		</div>
@@ -165,7 +165,7 @@ ${requestScope.search} --%>
 	</div>
 		<button style="border: 0px; padding: 0px;">
 		<div style="text-align: center;">
-			<a href="/cookie/removeLike?count=all&navigationPage=createLike"
+			<a href="/cookie/removeLike?count=all"
 				style="display: inline-block; background-color: #4CAF50; color: white; padding: 7px 10px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 5px; cursor: pointer;">전체
 				삭제</a>
 		</div>

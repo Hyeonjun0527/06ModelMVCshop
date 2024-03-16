@@ -71,7 +71,11 @@
 		    
 		    <init-param>
 		      <param-name>contextConfigLocation</param-name>
-		      <param-value>/config/springMVC/common-servlet.xml</param-value>
+		      <param-value>
+				  /config/springMVC/common-servlet.xml,
+				  /config/springMVC/common-servlet-aspect.xml,
+
+			  </param-value>
 		      <!-- Servlet Meta-data / Spring Meta-data 위치 분리함 -->
 		    </init-param>
 		    
