@@ -35,7 +35,6 @@ public class ProductDaoImpl implements ProductDao {
 		//제너레이트 키로 인해 도메인이 수정된다.
 		sqlSession.insert("ProductMapper.insertProduct", product);
 
-
 	}
 
 	public Product findProduct(int prodNo) throws Exception {

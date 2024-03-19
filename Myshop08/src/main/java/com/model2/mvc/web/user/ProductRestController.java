@@ -8,6 +8,8 @@ import com.model2.mvc.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -15,16 +17,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
-@Controller
-@RequestMapping("/product/*")
-public class ProductController {
+@RestController
+@RequestMapping("/product/json/*")
+public class ProductRestController {
     ///Field
     private ProductService productService;
     private static final String RESET = "\u001B[0m";
@@ -48,57 +54,48 @@ public class ProductController {
     int pageSize;
 
     ///Constructor
-    public ProductController() {
+    public ProductRestController() {
         System.out.println(YELLOW);
         System.out.println("생성자 :: " + this.getClass());
         System.out.println(RESET);
     }
 
     ///Method
-    @RequestMapping("/addProduct")
-    public String addProduct(@RequestParam("fileList") List<MultipartFile> fileList,
-                             @ModelAttribute("product") Product product,
-                             RedirectAttributes redirectAttributes,
-                             Model model) throws Exception {
+    @PostMapping("addProduct")
+    public ResponseEntity<?> addProduct(@RequestParam("files") List<MultipartFile> fileList,
+                             @ModelAttribute("product") Product product) throws Exception {
         System.out.println("/addProduct이 시작됩니다..");
 
         if (fileList.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:/product/addProductView.jsp";
+            return ResponseEntity.badRequest().body("Please select a file to upload");
         }
-//        String fileName = getProductFileName(file);
+        //스트링으로 바꾸고 리스트를 조인해야해
+
         List<String> fileNameList = new ArrayList<>();
 
-        for(MultipartFile file : fileList){
-            fileNameList.add(getProductFileName(file));
+        for (MultipartFile multipartFile : fileList) {
+            fileNameList.add(getProductFileName(multipartFile));
         }
-        System.out.println("fileNameList :: "+fileNameList);
-
-        String fileNamesStr = String.join(",", fileNameList);
-        System.out.println(fileNamesStr);
+        System.out.println("fileName :: "+fileNameList.toString());
+        String fileNames = String.join(",",fileNameList);
 
         //원래 이렇게 a넣으면 안될거 같은데..?
         product.setProTranCode("a");
-        product.setFileName(fileNamesStr);
+        product.setFileName(fileNames);
         //Business Logic
         System.out.println("당연히 prodNo 0이다. product :: " + product);
         productService.addProduct(product);
         //Model 과 View 연결 - 이 부분은 @RequestParam + Model 전략을 쓰면 해야됨
         //model.addAttribute("product", product);
-        model.addAttribute("fileNameList",fileNameList);
-
-
-        redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + fileNamesStr + "' and added product information.");
         System.out.println("/addProduct이 끝났습니다..");
-        System.out.println("forward:/product/addProductView.jsp" + "합니다.");
-        return "forward:/product/getProduct.jsp";
+        return ResponseEntity.status(HttpStatus.OK).body(product);
+        
     }//end of addProduct
-    @RequestMapping("/getProduct")
-    public String getProduct(HttpServletRequest request,
+    @PostMapping("getProduct")
+    public ResponseEntity<?> getProduct(HttpServletRequest request,
                              HttpServletResponse response,
-                             @ModelAttribute("product") Product product,
-                             @RequestParam("menu") String menu,
-                             Model model) throws Exception {
+                             @RequestBody Product product,
+                             @RequestParam("menu") String menu) throws Exception {
 
         System.out.println("/getProduct이 시작됩니다..");
         //Business Logic
@@ -106,13 +103,16 @@ public class ProductController {
         //Model 과 View 연결
         // 메서드내에서 참조변수에 도메인을 재할당해버린 경우에는
         // ModelAttribute가 인식을 하지 못한다.
-        List<String> fileNameList = Arrays.asList(product.getFileName().split(","));//1234,1234,1,
+        List<String> fileNames = Arrays.asList(product.getFileName().split(","));//1234,1234,1,
 
-        System.out.println(fileNameList.toString());
+        System.out.println(fileNames.toString());
 
-        model.addAttribute("fileNameList", fileNameList);
-        model.addAttribute("menu", menu);
-        model.addAttribute("product", product);
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("menu", menu);
+        map.put("product", product);
+        map.put("fileNames", fileNames);
+
 
         CookieUtil.addValue(request, response, "history", String.valueOf(product.getProdNo()));
 
@@ -120,20 +120,20 @@ public class ProductController {
 
         if (menu.equals("manage")) {
             System.out.println("forward:/updateProduct.jsp" + "합니다.");
-            return "forward:/product/updateProduct.jsp";
+            map.put("navigation","forward:/product/updateProduct.jsp");
         } else {//search, ok
-            return "forward:/product/getProduct.jsp";
+            map.put("navigation","forward:/product/getProduct.jsp");
         }//end of else
+        return ResponseEntity.status(HttpStatus.OK).body(map);
     }//end of getProduct
 
     //클라-searchBoundFirst,searchBoundEnd,currentPage,search,menu,products,page
     //currentPage의
-    @RequestMapping("/likeProduct")
-    public String likeProduct(@ModelAttribute("search") Search search,
+    @PostMapping("likeProduct")
+    public ResponseEntity<?> likeProduct(@ModelAttribute("search") Search search,
                               @RequestParam(value = "menu",required = false) String menu,
                               @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
                               @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
-                              Model model,
                               HttpServletRequest request) throws Exception {
         //search,searchBoundFirst,End는 스스로 안에서 페이지 이동할때의 경우임.
 
@@ -183,21 +183,26 @@ public class ProductController {
         System.out.println("products :: " + products);
 
         //Model 과 View 연결
-        model.addAttribute("totalCount", productsSize);
-        model.addAttribute("products",products);
-        model.addAttribute("search",search);
-        model.addAttribute("resultPage", page);
-        model.addAttribute("menu", menu);
+
+        Map<String,Object> map = new HashMap<>();
+
+        map.put("totalCount", productsSize);
+        map.put("products",products);
+        map.put("search",search);
+        map.put("resultPage", page);
+        map.put("menu", menu);
 
         System.out.println("/likeProduct이 끝났습니다..");
 
         //네비게이션
         if (menu != null) {
-            return "forward:/product/likeProduct.jsp";
+            map.put("navigation","forward:/product/likeProduct.jsp");
         } else {
             System.out.println("forward:/product/getProduct.jsp" + "합니다.");
-            return "forward:/product/getProduct.jsp";
+            map.put("navigation","forward:/product/getProduct.jsp");
         }//end of else
+
+        return ResponseEntity.status(HttpStatus.OK).body(map);
     }//end of likeProduct
 
     //클라-searchBoundFirst,searchBoundEnd,search,menu,products,page
@@ -323,41 +328,33 @@ public class ProductController {
 
     @PostMapping("/updateProduct")
     public String updateProduct(@ModelAttribute("product") Product product,
-                                @RequestParam("fileList") List<MultipartFile> fileList,
+                                @RequestParam("file") MultipartFile file,
                                 RedirectAttributes redirectAttributes,
                                 Model model) throws Exception {
         System.out.println("/updateProduct 이 시작됩니다.");
-        System.out.println("fileList::" + fileList);
-        if (fileList.isEmpty()) {
+
+        if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            throw new Exception("파일이 ㅇ벗습니다.");
+            return "redirect:/product/updateProduct.jsp";
         }
 
-//        String fileName = getProductFileName(file);
-        List<String> fileNameList = new ArrayList<>();
-        for(MultipartFile file : fileList) {
-            fileNameList.add(getProductFileName(file));
-
-        }
-
-        System.out.println("fileName :: "+fileNameList);
+        String fileName = getProductFileName(file);
+        System.out.println("fileName :: "+fileName);
 
         //Business Logic
         product = productService.getProduct(product.getProdNo());
 
-//        product.setFileName(fileName);
-        product.setFileName(String.join(",", fileNameList));
+        product.setFileName(fileName);
         product.setManuDate(product.getManuDate().replaceAll("-", ""));
 
         System.out.println("업데이트 완료 :: " + productService.updateProduct(product));
 
         //Model 과 View 연결
         model.addAttribute("product", product);
-        model.addAttribute("fileNameList",fileNameList);
 
         System.out.println("/updateProduct 이 끝났습니다.");
         System.out.println("redirect:/getProduct" + "합니다.");
-        redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + String.join(", ", fileNameList) + "' and added product information.");
+        redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + file.getOriginalFilename() + "' and added product information.");
         return "redirect:/product/getProduct?prodNo=" + product.getProdNo() + "&menu=ok";
     }//end of updateProduct
 
@@ -383,8 +380,8 @@ public class ProductController {
         String fileName = file.getOriginalFilename();
 
 
-        System.out.println("uploadDir :: "+uploadDir);
-        System.out.println("fileName :: " + fileName);
+        System.out.println("uploadDir"+uploadDir);
+        System.out.println("fileName" + fileName);
 
         Path path = Paths.get(uploadDir + fileName);
 

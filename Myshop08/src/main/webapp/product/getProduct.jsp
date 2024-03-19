@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 상품 상세 조회-->
 <%@ page contentType="text/html; charset=EUC-KR"%>
 <%@ page pageEncoding="EUC-kr" %>
@@ -13,8 +14,8 @@ Product productVO=(Product)request.getAttribute("productVO");
 <html>
 <head>
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
-<link rel="stylesheet" href="/css/styling.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styling.css" type="text/css">
 <title>상품상세조회</title>
 </head>
 
@@ -74,9 +75,11 @@ Product productVO=(Product)request.getAttribute("productVO");
 			상품이미지 <img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
+		<c:forEach var = "fileName" items="${fileNameList}">
 		<td class="ct_write01">
-			<img class="max-size" src = "${pageContext.request.contextPath}/images/uploadFiles/${product.getFileName()}"/>
+			<img class="max-size" src = "${pageContext.request.contextPath}/images/uploadFiles/${fileName}"/>
 		</td>
+		</c:forEach>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>

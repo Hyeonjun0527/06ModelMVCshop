@@ -56,5 +56,6 @@
     <orderEntry type="library" name="lib" level="application" />
     <orderEntry type="library" name="server" level="application" />
     <orderEntry type="library" name="WEB-INF-lib" level="application" />
+    <orderEntry type="library" name="jquery-2.1.4" level="application" />
   </component>
 </module>
