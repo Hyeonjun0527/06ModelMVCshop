@@ -18,7 +18,8 @@
     		ㅇ @Controller annotation 선언된 Bean 만 Wiring
 		   ㅇ @Service / @Repository  annotation 선언된 Bean 은 Scan 제외 -->
 	<context:component-scan base-package="com.model2.mvc.web">
-		<context:include-filter 	type="annotation"		expression="org.springframework.stereotype.Controller" />
+		<context:include-filter 	type="annotation"   expression="org.springframework.stereotype.Controller" />
+		<context:include-filter     type="annotation"   expression="org.springframework.web.bind.annotation.RestController" />
 		<context:exclude-filter 	type="annotation" 	expression="org.springframework.stereotype.Service"/>
 		<context:exclude-filter 	type="annotation" 	expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>            
@@ -43,12 +44,13 @@
 	          <mvc:annotation-driven /> 사용으로 interceptor 를 직접
 	          RequestMappingHandlerMapping 에 주입 할 수 없으니
 	       	  아래의 설정방법으로 interceptor 주입-->
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/user/**"/>
-			<bean class="com.model2.mvc.common.web.LogonCheckInterceptor"/>
-		</mvc:interceptor>
-	</mvc:interceptors>
+
+<!--	<mvc:interceptors>-->
+<!--		<mvc:interceptor>-->
+<!--			<mvc:mapping path="/user/**"/>-->
+<!--			<bean class="com.model2.mvc.common.web.LogonCheckInterceptor"/>-->
+<!--		</mvc:interceptor>-->
+<!--	</mvc:interceptors>-->
 
 	<mvc:resources mapping="/css/**" location="/css/" />
 	<mvc:resources mapping="/images/**" location="/images/" />

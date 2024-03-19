@@ -97,7 +97,7 @@ public class UserController {
 
 		System.out.println("/user/updateUser : POST");
 		//Business Logic
-		userService.updateUser(user);
+		userService.updateUser(user);//이 메서드는 user의 내부 속성까지 바꾼다. 그게 마이배티스의 힘이다.
 
 		String sessionId=((User)session.getAttribute("user")).getUserId();
 		if(sessionId.equals(user.getUserId())){
@@ -161,7 +161,7 @@ public class UserController {
 
 	//@RequestMapping("/listUser.do")
 	@RequestMapping( value="listUser" )
-	public String listUser( @ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
+	public String listUser( @ModelAttribute("search") Search search , Model model) throws Exception{
 
 		System.out.println("/user/listUser : GET / POST");
 

@@ -39,17 +39,17 @@ public class RequestFilter implements Filter{
 											FilterChain filterChain) 
 										throws IOException, ServletException {
 
-		User u = new User();
-		////////////////////////////////////////////////////디버깅////////////////////////////////////////
-		u.setAddr("서울시 강남구 역삼동");
-		u.setUserId("user12");//user12,admin
-		u.setUserName("scott");//scott, admin
-		u.setRole("user");//user, admin
-		u.setEmail("immio0@naver.com");
-		u.setPassword("1234");
-		u.setPhone("010-1234-5678");
-		u.setSsn("900101");
-		((HttpServletRequest) request).getSession().setAttribute("user",u);
+//		User u = new User();
+//		////////////////////////////////////////////////////디버깅////////////////////////////////////////
+//		u.setAddr("서울시 강남구 역삼동");
+//		u.setUserId("user12");//user12,admin
+//		u.setUserName("scott");//scott, admin
+//		u.setRole("user");//user, admin
+//		u.setEmail("immio0@naver.com");
+//		u.setPassword("1234");
+//		u.setPhone("010-1234-5678");
+//		u.setSsn("900101");
+//		((HttpServletRequest) request).getSession().setAttribute("user",u);
 
 		filterChain.doFilter(request, response);
 	}
