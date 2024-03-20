@@ -7,6 +7,11 @@
         <element id="directory" name="classes">
           <element id="module-output" name="Myshop08" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="application" name="WEB-INF-lib" />
+          <element id="library" level="application" name="server" />
+          <element id="library" level="application" name="lib" />
+        </element>
       </element>
     </root>
   </artifact>
