@@ -21,11 +21,9 @@
 			<result property="tranCode" column="tran_status_code" jdbcType="VARCHAR"/>
 			<result property="orderDate" column="order_date" jdbcType="DATE"/>
 			<result property="divyDate" column="dlvy_date" jdbcType="DATE"/>
-			<result property="finalPrice" column="final_price" jdbcType="NUMBER"/>
 			<!-- purchaseProd 연관 객체 매핑 -->
 			<association property="purchaseProd" column="prod_no" select="ProductMapper.findProduct"/>
 			<association property="buyer" column="buyer_id" select="UserMapper.getUser"/>
-
 		</association>
 
 	</resultMap>
@@ -41,7 +39,6 @@
 		<result property="tranCode" column="tran_status_code" jdbcType="VARCHAR"/>
 		<result property="orderDate" column="order_date" jdbcType="DATE"/>
 		<result property="divyDate" column="dlvy_date" jdbcType="DATE"/>
-		<result property="finalPrice" column="final_price" jdbcType="NUMBER"/>
 		<association property="purchaseProd" column="prod_no" select="ProductMapper.findProduct"/>
 		<association property="buyer" column="buyer_id" select="UserMapper.getUser"/>
 
@@ -54,11 +51,6 @@
 		) VALUES (
 		seq_transaction_tran_no.nextval, #{purchaseProd.prodNo}, #{buyer.userId}, #{paymentOption}, #{receiverName}, #{receiverPhone}, #{divyAddr}, #{divyRequest}, 'b', SYSDATE, #{divyDate}
 		)
-	</insert>
-
-	<insert id="addPurchaseDetail" parameterType="purchaseDetail" useGeneratedKeys="true" keyProperty="tranNo" keyColumn="tran_no">
-		INSERT INTO transactionDetail(
-		    detail_no,tran_no,prod_no,tran_quantity,price_per_unit
 	</insert>
 
 	<select id="getPurchase" parameterType="Integer" resultMap="purchaseSelectUnit">

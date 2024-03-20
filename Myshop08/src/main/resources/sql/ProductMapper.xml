@@ -10,7 +10,6 @@
 	<resultMap id="productSelectMap" type="product">
 		<result property="prodNo" 			column="prod_no" 		jdbcType="NUMERIC" />
 		<result property="prodName" 				column="prod_name" 					jdbcType="VARCHAR" />
-		<result property="stockQuantity"			column="stock_quantity"   			jdbcType="NUMERIC"/>
 		<result property="prodDetail" 				column="prod_detail" 					jdbcType="VARCHAR" />
 		<result property="manuDate"	column="manufacture_day" 	jdbcType="VARCHAR" />
 		<result property="price" 	column="price" 		jdbcType="NUMERIC" />
@@ -22,14 +21,14 @@
 	<!-- SQL : INSERT 제너레이트 키로 도메인에 "자동"할당 해준다. 나는 도메인 건드린 적 없지만 속성이 변경되어있음-->
 	<insert 	id="insertProduct"		parameterType="product" useGeneratedKeys="true" keyProperty="prodNo" keyColumn="prod_no">
 	 	INSERT
-		INTO product (prod_no,prod_name,stock_quantity,prod_detail,manufacture_day,price,image_file,reg_date)
-		VALUES	 (seq_product_prod_no.nextval,#{prodName},#{stockQuantity},#{prodDetail},#{manuDate},#{price},#{fileName},sysdate)
+		INTO product (prod_no,prod_name,prod_detail,manufacture_day,price,image_file,reg_date)
+		VALUES	 (seq_product_prod_no.nextval,#{prodName},#{prodDetail},#{manuDate},#{price},#{fileName},sysdate)
 	 </insert>
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="findProduct"	parameterType="int"	resultMap="productSelectMap">
 		SELECT
-			prod_no,prod_name,stock_quantity,prod_detail,manufacture_day,price,image_file,reg_date
+			prod_no,prod_name,prod_detail,manufacture_day,price,image_file,reg_date
 		FROM product
 		WHERE prod_no = #{value}
 		ORDER BY prod_no
@@ -40,7 +39,6 @@
 	   	UPDATE PRODUCT
 	   	<set>
 	   		prod_name 	= #{prodName},
-			stock_quantity = #{stockQuantity},
 			prod_detail	= #{prodDetail},
 			manufacture_day = #{manuDate},
 			price = #{price},
@@ -52,12 +50,11 @@
 
 	<!-- SQL : SELECT LIST -->
 	<select id="getProductList" parameterType="search" resultMap="productSelectMap">
-		SELECT prod_no, prod_name,stock_quantity,prod_detail, manufacture_day, price, image_file, reg_date,
+		SELECT prod_no, prod_name,prod_detail, manufacture_day, price, image_file, reg_date,
 		       COALESCE(tran_status_code, 'a') AS tran_status_code
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 		FROM ( SELECT p.prod_no,
 		p.prod_name,
-		p.stock_quantity,
 		p.prod_detail,
 		p.manufacture_day,
 		p.price,
@@ -134,7 +131,6 @@
 		SELECT COUNT(*)
 		FROM ( SELECT p.prod_no,
 		p.prod_name,
-		p.stock_quantity,
 		p.prod_detail,
 		p.manufacture_day,
 		p.price,
