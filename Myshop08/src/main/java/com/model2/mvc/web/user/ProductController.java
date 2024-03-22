@@ -340,7 +340,7 @@ public class ProductController {
 
         }
 
-        System.out.println("fileName :: "+fileNameList);
+        System.out.println("fileNameList :: "+fileNameList);
 
         //Business Logic
         product = productService.getProduct(product.getProdNo());

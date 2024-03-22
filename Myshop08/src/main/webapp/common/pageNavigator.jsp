@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
+
+<script src="../common/variousSearch.js"></script>
+
 <!-- 요청페이지 <= 페이지번들당 페이지 수. 이전  3  <= 5 이면 더이상 이전 못누르게 함!-->
 	<c:if test="${resultPage.currentPage <= resultPage.pageUnit	}">
 			◀ 이전

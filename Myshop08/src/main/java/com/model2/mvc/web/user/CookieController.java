@@ -205,13 +205,15 @@ public class CookieController {
     }//end of removeLike
 
     @RequestMapping("createLike")
-    public String createLike(@RequestParam(value= "from",required = false) String from,
+    public String createLike(
                              HttpServletRequest request) throws Exception {
         //얘는 왜있나 할 수 있는데, 얘는 쿠키를 Product로 만드는 놈이다.
         //CreateHisotry도 쿠키를 Product로 만드는 놈이다.
         //LikeProduct에다가 여기있는 로직을 다 넣으면 일관성이 떨어질 것 같았다.
         //currentPage는 페이지바꾸는 행위했을때,
         System.out.println("[[[createLike 시작]]]");
+        String from = request.getParameter("from");
+
 
 //        if(currentPage==null){
 //            currentPage="1";

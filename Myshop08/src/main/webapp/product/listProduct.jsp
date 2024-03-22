@@ -15,19 +15,22 @@
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
-
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
     let type = '${search.searchType}';//없으면 정말 아무것도 없는 공백이 됨.''가 됨
     let searchBoundFirst = '${search.searchBoundFirst}';//'0'이 됨
     let searchBoundEnd = '${search.searchBoundEnd}';
+    let menu = '${menu}';
+    console.log(menu);
     console.log('jsp에서 searchBoundFirst', searchBoundFirst);
     console.log('jsp에서 searchBoundEnd', searchBoundEnd);
     console.log('jsp에서 type', type);
 </script>
+<script type="text/javascript" src="/javascript/variousSearch.js"></script>
 
 <div style="width: 98%; margin-left: 10px;">
     <%--이 폼태그를 전달하는 건 1,2,3,4클릭이나 검색할때만임. --%>
-    <form id="detailForm" name="detailForm" action="/product/listProduct?menu=${menu}" method="post">
+    <form id="detailForm" name="detailForm">
 
         <table width="100%" height="37" border="0" cellpadding="0"
                cellspacing="0">
@@ -209,6 +212,9 @@
 
 </div>
 
-<script type="text/javascript" src="/javascript/variousSearch.js"></script>
+
+
+
+
 </body>
 </html>

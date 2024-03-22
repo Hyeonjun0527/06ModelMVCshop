@@ -1,10 +1,9 @@
-<!-- 상품목록조회 -->
+
 <%@page import="org.apache.jasper.tagplugins.jstl.core.Param"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!-- 오브젝트스콥 REQUEST :: list,resultPage,search,   PARAM :: menu -- -->
 <%-- ${param.menu}
 
 ${requestScope.list}
@@ -16,22 +15,47 @@ ${requestScope.search} --%>
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 <link href="/css/listProduct.css" rel="stylesheet" type="text/css">
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 <script>
+
+
 	let type = '${search.searchType}';//없으면 정말 아무것도 없는 공백이 됨.''가 됨
 	let searchBoundFirst = '${search.searchBoundFirst}';//'0'이 됨
 	let searchBoundEnd = '${search.searchBoundEnd}';
+	console.log('jsp에서 type', type);
 	console.log('jsp에서 searchBoundFirst',searchBoundFirst);
 	console.log('jsp에서 searchBoundEnd',searchBoundEnd);
-	console.log('jsp에서 type', type);
+
+	$(document).ready(function(){
+
+		const td = $("td[data-get_product]")
+		console.log("td :: " + td);
+		const prodNo = td.data("get_product")
+		console.log("prodNO :: "+prodNo);
+		console.log("menu :: " + "${param.menu}");
+
+		$("div.delete_one:contains('삭제')").click(function(){
+			console.log("1이다 이야");
+			window.location = "/cookie/removeLike?count=one&prodNo="+prodNo;
+		})
+		$("div.delete_all:contains('삭제')").click(function(){
+			console.log("2이다 이야");
+			window.location.href = "/cookie/removeLike?count=all&prodNo="+prodNo;
+		})
+		td.click(function(){
+			console.log("3이다 이야");
+			window.location.href = "/product/getProduct?prodNo="+prodNo+"&menu=${param.menu}";
+		})
+	})
+
 	</script>
 	
 	<div style="width: 98%; margin-left: 10px;">
 <%--이 폼태그를 전달하는 건 1,2,3,4클릭이나 검색할때만임. --%>
-		<form id="detailForm" name="detailForm" action="/cookie/createLike?menu=${param.menu}"  method="post">
+		<form id="detailForm">
 
 			<table width="100%" height="37" border="0" cellpadding="0"
 				cellspacing="0">
@@ -98,22 +122,19 @@ ${requestScope.search} --%>
 				<c:set var="i" value="0" />
 				<c:forEach var="product" items="${products}">
 				
-				
 					<c:set var="i" value="${i+1 }"/>
 					<tr class="ct_list_pop">
 								<td align="center">		<button style="border: 0px; padding: 0px;">
-		<div style="text-align: center;">
-			<a href="/cookie/removeLike?count=one&prodNo=${product.prodNo}"
-				style="display: inline-block; background-color: #4CAF50; color: white; padding: 7px 10px; text-align: center; text-decoration: none; font-size: 8px; border-radius: 5px; cursor: pointer;">
-				삭제</a>
+		<div style="text-align: center;" class="delete_one">
+				삭제
 		</div>
 	</button>${i}</td>
 								<td></td>
 								<c:if test="${!(product.proTranCode=='a')}">
-									<td align="left">${product.prodName}</td>
+									<td align="left" data-get_product="${product.prodNo}">${product.prodName}</td>
 								</c:if>
 								<c:if test="${product.proTranCode=='a'}">
-									<td align="left"><a href="/product/getProduct?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a></td>
+									<td align="left">${product.prodName}</td>
 								</c:if>
 								<td></td>
 								<td align="left">${product.price }</td>
@@ -153,10 +174,8 @@ ${requestScope.search} --%>
 
 	</div>
 		<button style="border: 0px; padding: 0px;">
-		<div style="text-align: center;">
-			<a href="/cookie/removeLike?count=all"
-				style="display: inline-block; background-color: #4CAF50; color: white; padding: 7px 10px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 5px; cursor: pointer;">전체
-				삭제</a>
+		<div style="text-align: center;" class="delete_all">
+			삭제
 		</div>
 	</button>
 	<script type="text/javascript"  src="/javascript/variousSearch.js"></script>
