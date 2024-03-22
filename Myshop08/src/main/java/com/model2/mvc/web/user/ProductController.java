@@ -192,12 +192,8 @@ public class ProductController {
         System.out.println("/likeProduct이 끝났습니다..");
 
         //네비게이션
-        if (menu != null) {
             return "forward:/product/likeProduct.jsp";
-        } else {
-            System.out.println("forward:/product/getProduct.jsp" + "합니다.");
-            return "forward:/product/getProduct.jsp";
-        }//end of else
+
     }//end of likeProduct
 
     //클라-searchBoundFirst,searchBoundEnd,search,menu,products,page

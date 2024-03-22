@@ -54,7 +54,7 @@ function fncGetList(currentPage) {
 			console.log("if 2번째 실행");
 			// document.getElementById("searchBoundFirst").value = searchBoundFirst;
 			// document.getElementById("searchBoundEnd").value = searchBoundEnd;
-			$("#searchBoundFirst").val() = searchBoundFirst;
+			$("#searchBoundFirst").val(searchBoundFirst);
 		} else {
 			console.log("else 2번째 실행");
 			document.getElementById("searchBoundFirst").value=0;
@@ -84,7 +84,7 @@ function fncGetList(currentPage) {
 	const url = "/product/listProduct?menu="+menu;
 	console.log(url);
 	$("form").attr("method" , "POST").attr("action" , url).submit();
-}
+}//function
 
 
 // function fncGetListNorm(currentPage){

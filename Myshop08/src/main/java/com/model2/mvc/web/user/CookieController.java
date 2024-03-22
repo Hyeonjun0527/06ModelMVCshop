@@ -213,6 +213,7 @@ public class CookieController {
         //currentPage는 페이지바꾸는 행위했을때,
         System.out.println("[[[createLike 시작]]]");
         String from = request.getParameter("from");
+        String menu = request.getParameter("menu");
 
 
 //        if(currentPage==null){
