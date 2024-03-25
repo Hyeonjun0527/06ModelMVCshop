@@ -421,6 +421,22 @@ public class ProductRestController {
 
     }
 
+    @PostMapping("/autoComplete")
+    public ResponseEntity<?> autoComplete(@RequestBody Search search) throws Exception{
+
+        search.setCurrentPage(1);
+        search.setPageSize(2147483647);
+        //키워드와 컨디션값이 들어올것임.
+        System.out.println("/autoComplete이 시작됩니다..");
+        System.out.println("search :: "+search);
+        //Business Logic
+        Map<String,Object> productMap = productService.getProductList(search);
+        List<Product> productList = (List<Product>)productMap.get("list");
+
+        System.out.println(productList);
+        return ResponseEntity.status(HttpStatus.OK).body(productList);
+    }
+
     public String getProductFileName(MultipartFile file) throws Exception {
         ;
 

@@ -1,5 +1,6 @@
 package com.model2.mvc.web.user;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.CookieUtil;
@@ -106,8 +107,10 @@ public class ProductController {
         //Model 과 View 연결
         // 메서드내에서 참조변수에 도메인을 재할당해버린 경우에는
         // ModelAttribute가 인식을 하지 못한다.
-        List<String> fileNameList = Arrays.asList(product.getFileName().split(","));//1234,1234,1,
-
+        List<String> fileNameList = new ArrayList<>();
+        if(product.getFileName() != null){
+            fileNameList = Arrays.asList(product.getFileName().split(","));//1234,1234,1,
+        }
         System.out.println(fileNameList.toString());
 
         model.addAttribute("fileNameList", fileNameList);
@@ -244,6 +247,8 @@ public class ProductController {
         System.out.println("ListProductAction ::" + page);
         System.out.println("products :: " + productMap.get("list"));
         System.out.println("search :: " + search);
+
+
 
         //Model 과 View 연결
         //model.addAttribute("products", products);

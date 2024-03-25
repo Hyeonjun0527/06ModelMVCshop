@@ -1,0 +1,12 @@
+com.model2.mvc.service.product.impl.ProductDaoImpl=org.springframework.stereotype.Component
+com.model2.mvc.service.product.impl.ProductServiceImpl=org.springframework.stereotype.Component
+com.model2.mvc.service.purchase.impl.PurchaseDaoImpl=org.springframework.stereotype.Component
+com.model2.mvc.service.purchase.impl.PurchaseServiceImpl=org.springframework.stereotype.Component
+com.model2.mvc.service.user.impl.UserDaoImpl=org.springframework.stereotype.Component
+com.model2.mvc.service.user.impl.UserServiceImpl=org.springframework.stereotype.Component
+com.model2.mvc.web.user.CookieController=org.springframework.stereotype.Component
+com.model2.mvc.web.user.ProductController=org.springframework.stereotype.Component
+com.model2.mvc.web.user.ProductRestController=org.springframework.stereotype.Component
+com.model2.mvc.web.user.PurchaseController=org.springframework.stereotype.Component
+com.model2.mvc.web.user.UserController=org.springframework.stereotype.Component
+com.model2.mvc.web.user.UserRestController=org.springframework.stereotype.Component

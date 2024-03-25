@@ -81,12 +81,12 @@ public class Search {
         this.searchBoundEnd = searchBoundEnd;
     }
 
-    //==> Select Query 시 ROWNUM 마지막 값
+    //==> Select Query 시 ROWNUM 마지막 값 3*5 = 15번
     public int getEndRowNum() {
         return getCurrentPage() * getPageSize();
     }
 
-    //==> Select Query 시 ROWNUM 시작 값
+    //==> Select Query 시 ROWNUM 시작 값 2 *5 + 1 = 11번 커렌페 1 pageSize 최대값하면
     public int getStartRowNum() {
         return (getCurrentPage() - 1) * getPageSize() + 1;
     }
