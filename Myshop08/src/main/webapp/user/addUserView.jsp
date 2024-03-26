@@ -13,10 +13,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	<link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" >
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
 
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -172,11 +171,11 @@
 	<h1 class="bg-primary text-center">회 원 가 입</h1>
 
 	<!-- form Start /////////////////////////////////////-->
-	<form class="form-horizontal">
+	<form>
 
-		<div class="form-group">
-			<label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아 이 디</label>
-			<div class="col-sm-4">
+		<div class="row mb-3">
+			<label for="userId" class="offset-sm-2 col-sm-1 col-form-label">아 이 디</label>
+			<div class="col-sm-5">
 				<input type="text" class="form-control" id="userId" name="userId" placeholder="중복확인하세요"  readonly>
 				<span id="helpBlock" class="help-block">
 		      	<strong class="text-danger">입력전 중복확인 부터..</strong>
@@ -187,46 +186,46 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="password" class="col-sm-offset-1 col-sm-3 control-label">비밀번호</label>
+		<div class="row mb-3">
+			<label for="password" class="offset-sm-2 col-sm-1 col-form-label">비밀번호</label>
 			<div class="col-sm-4">
 				<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="password2" class="col-sm-offset-1 col-sm-3 control-label">비밀번호 확인</label>
+		<div class="row mb-3">
+			<label for="password2" class="offset-sm-2 col-sm-1 col-form-label">비밀번호 확인</label>
 			<div class="col-sm-4">
 				<input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인">
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="userName" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
+		<div class="row mb-3">
+			<label for="userName" class="offset-sm-2 col-sm-1 col-form-label">이름</label>
 			<div class="col-sm-4">
 				<input type="password" class="form-control" id="userName" name="userName" placeholder="회원이름">
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">주민번호</label>
+		<div class="row mb-3">
+			<label for="ssn" class="offset-sm-2 col-sm-1 col-form-label">주민번호</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="ssn" name="ssn" placeholder="주민번호">
-				<span id="helpBlock" class="help-block">
+				<span id="helpBlock2" class="help-block">
 		      	 <strong class="text-danger">" -  " 제외 13자리입력하세요</strong>
 		      </span>
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">주소</label>
+		<div class="row mb-3">
+			<label for="ssn" class="offset-sm-2 col-sm-1 col-form-label">주소</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="addr" name="addr" placeholder="주소">
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">휴대전화번호</label>
+		<div class="row mb-3">
+			<label for="ssn" class="offset-sm-2 col-sm-1 col-form-label">휴대전화번호</label>
 			<div class="col-sm-2">
 				<select class="form-control" name="phone1" id="phone1">
 					<option value="010" >010</option>
@@ -245,15 +244,15 @@
 			<input type="hidden" name="phone"  />
 		</div>
 
-		<div class="form-group">
-			<label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">이메일</label>
+		<div class="row mb-3">
+			<label for="ssn" class="offset-sm-2 col-sm-1 col-form-label">이메일</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="email" name="email" placeholder="이메일">
 			</div>
 		</div>
 
-		<div class="form-group">
-			<div class="col-sm-offset-4  col-sm-4 text-center">
+		<div class="row mb-3">
+			<div class="offset-sm-7 col-sm-3 text-center">
 				<button type="button" class="btn btn-primary"  >가 &nbsp;입</button>
 				<a class="btn btn-primary btn" href="#" role="button">취&nbsp;소</a>
 			</div>

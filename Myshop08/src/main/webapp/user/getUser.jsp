@@ -15,7 +15,7 @@
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
 	<!-- Bootstrap Dropdown Hover CSS -->
@@ -38,7 +38,7 @@
 		//============= 회원정보수정 Event  처리 =============
 		$(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-			$( "button" ).on("click" , function() {
+			$( "button.confirm" ).on("click" , function() {
 				self.location = "/user/updateUser?userId=${user.userId}"
 			});
 		});
@@ -105,7 +105,7 @@
 
 	<div class="row">
 		<div class="col-md-12 text-center ">
-			<button type="button" class="btn btn-primary">회원정보수정</button>
+			<button type="button" class="btn btn-primary confirm">회원정보수정</button>
 		</div>
 	</div>
 

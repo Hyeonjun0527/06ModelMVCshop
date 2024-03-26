@@ -13,7 +13,7 @@
 <%--		navbar-brand는 축소되도 보인다.--%>
 		<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
 
-<%--		navbar-toggle은 축소될때만 보이고, 오른쪽에 토글버튼 생성함--%>
+<%--		navbar-toggle은 축소될때만 보이고, 오른쪽	에 토글버튼 생성함--%>
 		<!-- toolBar Button Start //////////////////////// -->
 		<div class="navbar-header">
 		    <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#target">

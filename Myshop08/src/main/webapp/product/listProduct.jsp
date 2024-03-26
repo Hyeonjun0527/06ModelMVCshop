@@ -8,17 +8,37 @@
 <html>
 <head>
     <title>상품 목록조회</title>
-    <link rel="stylesheet" href="/css/admin.css" type="text/css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <%--제이쿼리--%>
     <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <%--부트스트랩--%>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <%-- 부트스트랩 Dropdown Hover CSS JS--%>
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+    <%--사용자--%>
     <script
             src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"
             integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY="
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/font.css" type="text/css">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        .max-size {
+            max-width: 100px !important;
+            max-height: 100px !important;
+        }
+    </style>
     <link href="/css/listProduct.css" rel="stylesheet" type="text/css">
 
 </head>
-<body bgcolor="#ffffff" text="#000000">
+<body class="default-font">
 <script>
 
     let type = '${search.searchType}';//없으면 정말 아무것도 없는 공백이 됨.''가 됨
@@ -343,9 +363,9 @@
 
         });//end of autocomplete
 
-        $.ui.autocomplete.prototype._close = function(event) {
-            // 닫힘 동작을 무시하거나 조건에 따라 처리
-        };
+        // $.ui.autocomplete.prototype._close = function(event) {
+        //     // 닫힘 동작을 무시하거나 조건에 따라 처리
+        // };
     });//end of ready
 </script>
 
