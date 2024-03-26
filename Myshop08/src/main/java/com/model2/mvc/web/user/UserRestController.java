@@ -68,17 +68,12 @@ public class UserRestController {
 
 
 	@RequestMapping( value="json/getUser/{userId}", method=RequestMethod.GET )
-	public Map<String,Object> getUser( @PathVariable String userId ) throws Exception{
-		
-		System.out.println("/user/json/getUser : GET");
-		
-		//Business Logic
-		User user =userService.getUser(userId);
+	public User getUser( @PathVariable String userId ) throws Exception{
 
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("user",user);
-		map.put("message","ok");
-		return map;
+		System.out.println("/user/json/getUser : GET");
+
+		//Business Logic
+		return userService.getUser(userId);
 	}
 
 	@RequestMapping(value = "json/updateUser",method = RequestMethod.GET)
@@ -130,9 +125,9 @@ public class UserRestController {
 	//클라가 데이터를 보내
 	//컨트롤러가 데이터를 바인딩하고, 세션을 세팅해주고, 뷰는 건내주지 않아.
 	//클라는 데이터만 받아. 그 데이터를 가지고, 자기의 UI에 네비게이션을 잘 하겠지.
-	@RequestMapping( value="json/login", method=RequestMethod.POST, produces = "application/json; charset=UTF-8" )
-	public Map<String,Object> login(	@RequestBody User user,
-									HttpSession session ) throws Exception{
+	@RequestMapping( value="json/login", method=RequestMethod.POST )
+	public User login(	@RequestBody User user,
+						  HttpSession session ) throws Exception{
 
 		System.out.println("/user/json/login : POST");
 		//Business Logic
@@ -143,12 +138,7 @@ public class UserRestController {
 			session.setAttribute("user", dbUser);
 		}
 
-		System.out.println("dbUser :: "+dbUser);
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("user",dbUser);
-		map.put("message","ok");
-
-		return map;
+		return dbUser;
 	}//모델어트리뷰트는 바인딩해주고, 데이터를 스콥에 담아줘. 그런데 클라는 스콥이란 개념이 없어서
 	//json으로 데이터를 전달해줘야해.
 

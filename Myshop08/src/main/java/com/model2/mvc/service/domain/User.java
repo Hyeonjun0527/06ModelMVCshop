@@ -20,8 +20,10 @@ public class User {
 	private String phone1;
 	private String phone2;
 	private String phone3;
+	//////////////////////////////////////////////////////////////////////////////////////////////
+	// JSON ==> Domain Object  Binding을 위해 추가된 부분
+	private String regDateString;
 
-	
 	
 	///Constructor
 	public User(){
@@ -98,7 +100,26 @@ public class User {
 	public String getPhone3() {
 		return phone3;
 	}
+	public void setPhone1(String phone1) {
+		this.phone1 = phone1;
+	}
 
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
+
+	public void setPhone3(String phone3) {
+		this.phone3 = phone3;
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	public String getRegDateString() {
+		return regDateString;
+	}
+
+	public void setRegDateString(String regDateString) {
+		this.regDateString = regDateString;
+	}
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", role=" + role
