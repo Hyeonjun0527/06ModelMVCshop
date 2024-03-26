@@ -37,7 +37,6 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../z.utility/lib/spring-context-indexer-5.2.5.RELEASE.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../z.utility/lib/spring-context-support-5.2.5.RELEASE.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../z.utility/lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../z.utility/lib/com.springsource.org.aspectj.weaver-sources-1.6.8.RELEASE.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../z.utility/WEB-INF-lib/ojdbc14.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../z.utility/WEB-INF-lib/commons-io-1.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../../../../z.utility/WEB-INF-lib/commons-fileupload-1.2.1.jar" path-in-jar="/" />
