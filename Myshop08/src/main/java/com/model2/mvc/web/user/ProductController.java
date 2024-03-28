@@ -205,6 +205,7 @@ public class ProductController {
                               @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
                               @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
                               @RequestParam(value = "menu", required = false) String menu,
+                              @RequestParam(value = "image", required = false) String image,
                               Model model) throws Exception {
         System.out.println("/listProduct이 시작됩니다..");
         System.out.println("searchBound :: " + searchBoundFirst + " " + searchBoundEnd);
@@ -263,9 +264,19 @@ public class ProductController {
         //네비게이션
         if (menu != null) {
             System.out.println("forward:/product/listProduct.jsp" + "합니다.");
+            if(image!=null) {
+                if (image.equals("ok")) {
+                    return "forward:/product/listProductImage.jsp";
+                }
+            }
             return "forward:/product/listProduct.jsp";
         } else {
             System.out.println("forward:/product/getProduct.jsp" + "합니다.");
+            if(image!=null) {
+                if (image.equals("ok")) {
+                    return "forward:/product/listProductImage.jsp";
+                }
+            }
             return "forward:/product/getProduct.jsp";
         }//end of else
     }//end of listProduct

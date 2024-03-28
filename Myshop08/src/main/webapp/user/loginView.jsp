@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
-
+    <link rel="stylesheet" href="/css/font.css" type="text/css">
     <!--  ///////////////////////// CSS ////////////////////////// -->
     <style>
         body >  div.container{
@@ -68,7 +68,7 @@
 
 </head>
 
-<body>
+<body class="default-font">
 
 <!-- ToolBar Start /////////////////////////////////////-->
 <div class="navbar  navbar-default">

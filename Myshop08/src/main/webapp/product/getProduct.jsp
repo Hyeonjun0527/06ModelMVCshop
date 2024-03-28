@@ -76,6 +76,7 @@ Product productVO=(Product)request.getAttribute("productVO");
                 <img class="max-size" src="${pageContext.request.contextPath}/images/uploadFiles/${fileName}"/>
             </div>
         </c:forEach>
+        ${product.fileName}
     </div>
 
     <hr/>

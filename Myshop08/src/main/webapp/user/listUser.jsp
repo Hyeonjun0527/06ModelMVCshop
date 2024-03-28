@@ -33,7 +33,7 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<!-- jQuery UI toolTip 사용 JS-->
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+	<link rel="stylesheet" href="/css/font.css" type="text/css">
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
 		body {
@@ -120,7 +120,7 @@
 
 </head>
 
-<body>
+<body  class="default-font">
 
 <!-- ToolBar Start /////////////////////////////////////-->
 <jsp:include page="/layout/toolbar.jsp" />
@@ -175,25 +175,24 @@
 
 		<thead>
 		<tr>
-			<th align="center">No</th>
-			<th align="left" >회원 ID</th>
-			<th align="left">회원명</th>
-			<th align="left">이메일</th>
-			<th align="left">간략정보</th>
+			<th>No</th>
+			<th>회원 ID</th>
+			<th>회원명</th>
+			<th>이메일</th>
+			<th>간략정보</th>
 		</tr>
 		</thead>
 
 		<tbody>
-
 		<c:set var="i" value="0" />
 		<c:forEach var="user" items="${list}">
 			<c:set var="i" value="${ i+1 }" />
 			<tr>
 				<td align="center">${ i }</td>
-				<td align="left"  title="Click : 회원정보 확인">${user.userId}</td>
-				<td align="left">${user.userName}</td>
-				<td align="left">${user.email}</td>
-				<td align="left">
+				<td  title="Click : 회원정보 확인">${user.userId}</td>
+				<td>${user.userName}</td>
+				<td>${user.email}</td>
+				<td>
 					<i class="glyphicon glyphicon-ok" id= "${user.userId}"></i>
 					<input type="hidden" value="${user.userId}">
 				</td>

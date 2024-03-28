@@ -24,7 +24,7 @@
 			margin-top: 10px;
 		}
 	</style>
-
+	<link rel="stylesheet" href="/css/font.css" type="text/css">
 	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 
@@ -155,7 +155,7 @@
 
 </head>
 
-<body>
+<body class="default-font">
 
 <!-- ToolBar Start /////////////////////////////////////-->
 <div class="navbar  navbar-default">

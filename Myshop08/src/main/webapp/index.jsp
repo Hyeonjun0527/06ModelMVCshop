@@ -29,32 +29,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
   <!--  ///////////////////////// CSS ////////////////////////// -->
-  <style></style>
-
+  <link rel="stylesheet" href="/css/font.css" type="text/css">
+  <link rel="stylesheet" href="/css/skewButton.css" type="text/css">
+  <link rel="stylesheet" href="/css/index.css" type="text/css">
   <!--  ///////////////////////// JavaScript ////////////////////////// -->
-  <script type="text/javascript">
 
-    //============= 회원가입 화면이동 =============
-    $( function() {
-      //==> 추가된부분 : "addUser"  Event 연결
-      $("a[href='#' ]:contains('회원가입')").on("click" , function() {
-        self.location = "/user/addUser"
-      });
-    });
-
-    //============= 로그인 화면이동 =============
-    $( function() {
-      //==> 추가된부분 : "addUser"  Event 연결
-      $("a[href='#' ]:contains('로 그 인')").on("click" , function() {
-        self.location = "/user/login"
-      });
-    });
-
-  </script>
 
 </head>
 
-<body>
+<body class="default-font">
 
 <!-- ToolBar Start /////////////////////////////////////-->
 <div class="navbar  navbar-default">
@@ -161,12 +144,70 @@
     </div>
     <!--  Main end /////////////////////////////////////-->
 
+    <div class="col-md-9">
+      <div class="jumbotron">
+
+        <div class="text-center">
+          <input type="text" id="daumInput" placeholder="랜덤으로 이미지가 나와요 ">
+          <button class="grow_skew_backward btn-lg" id="submitButton">제출</button>
+          <img id="daumImage" src="" alt="이미지가 없습니다."/>
+        </div>
+
+
+
+      </div>
+    </div>
   </div>
   <!-- 다단레이아웃  end /////////////////////////////////////-->
 
 </div>
 <!--  화면구성 div end /////////////////////////////////////-->
-
 </body>
+<script type="text/javascript">
+
+  //============= 회원가입 화면이동 =============
+  $( function() {
+    //==> 추가된부분 : "addUser"  Event 연결
+    $("a[href='#' ]:contains('회원가입')").on("click" , function() {
+      self.location = "/user/addUser"
+    });
+  //============= 로그인 화면이동 =============
+
+    //==> 추가된부분 : "addUser"  Event 연결
+    $("a[href='#' ]:contains('로 그 인')").on("click" , function() {
+      self.location = "/user/login"
+    });
+
+    $('#submitButton').click(function() {
+      let daumInput = $('#daumInput').val();
+
+      console.log(daumInput);
+
+      $.ajax(
+              {
+                url : "/rest/json/searchImage",
+                method : "POST",
+                dataType : "json" ,
+                headers : {
+                  "Accept" : "application/json",
+                  "Content-Type" : "application/json"
+                },
+                data: JSON.stringify({
+                  "name" : daumInput
+                }),
+              }
+      ).done(function(data,status,xhr){
+        //받은 데이터는 제이슨일거야.
+        console.log("받은 데이터 : " + data.imageUrl);
+        $("#daumImage").prop("src", data.imageUrl);
+      }).fail(function(xhr, status, error) {
+        console.log("요청 실패: " + status + ", " + error);
+      });
+    });
+  });
+
+
+
+</script>
 
 </html>

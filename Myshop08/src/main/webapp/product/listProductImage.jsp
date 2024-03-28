@@ -38,6 +38,7 @@
     <link href="/css/listProduct.css" rel="stylesheet" type="text/css">
 
 </head>
+
 <body class="default-font">
 
 <jsp:include page="/layout/toolbar.jsp" />
@@ -105,9 +106,7 @@
 
                 <button type="button" class="btn btn-default">검색</button>
                 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-
             </div>
-
             <div class="col-md-12 text-right">
                 <div class="form-group">
 
@@ -123,7 +122,6 @@
                     <input type="text" id="searchBoundFirst" name="searchBoundFirst"
                            value='${search.searchBoundFirst}'/>
                     부터
-
                     <input type="text" id="searchBoundEnd" name="searchBoundEnd" value='${search.searchBoundEnd}'/>
                     까지
 
@@ -132,75 +130,64 @@
                 </div>
             </div>
         </form>
+    </div>
 
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <td>No</td>
-                <td>상품명</td>
-                <td>가격</td>
-                <td>등록일</td>
-                <td>현재상태</td>
-                <td>찜하기</td>
-            </tr>
-            </thead>
-
-            <tbody>
+            <div class="row">
             <c:set var="i" value="0"/>
             <c:forEach var="product" items="${list}">
-                <c:set var="i" value="${i+1 }"/>
-                <tr>
-                    <td align="center">${i}</td>
-                    <c:if test="${!(product.proTranCode=='a')}">
-                    <td align="left">${product.prodName}</td>
-                    </c:if>
-                    <c:if test="${product.proTranCode=='a'}">
-                    <td align="left">
-                        <button type="button" data-getProduct data-prodNo="${product.prodNo}">
-                                ${product.prodName}
-                        </button>
-                    </td>
-                    </c:if>
-                    <td align="left">${product.price}</td>
-                    <!-- 가격 -->
-                    <td align="left">${product.regDate}</td>
-                    <c:if test="${product.proTranCode!=null}">
+                <c:set var="i" value="${i+1}"/>
+                <div class="col-sm-6 col-md-4">
+                    <p>No : ${i}</p>
+                    <div class="thumbnail">
 
-                        <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '판매중' : ''}"/>
+                        <c:forEach var="fileName" items="${fileNameList}">
+                            <div class="col-xs-8 col-md-4">
+                                <img class="max-size" src="${pageContext.request.contextPath}/images/uploadFiles/${fileName}"/>
+                            </div>
+                        </c:forEach>
+                        <div class="caption">
+                            <h3>상품명 : ${product.prodName}</h3>
+                            <p>상품설명 : </p>
+                            <p>가격 : ${product.price}</p>
+                            <p>현재상태 : </p>
+                            <c:if test="${product.proTranCode!=null}">
+                                <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '판매중' : ''}"/>
 
-                        <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '판매완료' : ''}"/>
-                        <c:set var="resultB2" value=""/>
-                    <c:if test="${menu == 'manage' || menu == 'ok'}">
-                        <c:set var="resultB2" value="${product.proTranCode.trim() == 'b' ? '배송하기' : ''}"/>
-                    </c:if>
-                        <c:set var="resultC" value="${product.proTranCode.trim() == 'c' ? '배송중' : ''}"/>
-                        <c:set var="resultD" value="${product.proTranCode.trim() == 'd' ? '배송완료' : ''}"/>
-
-                    <td align="left">${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
-                        <span class="clickableSpan" data-update
-                              data-prodNo="${product.prodNo}">${resultB2}</span>${resultC}${resultD}
-                    </td>
-                    </c:if>
-                    <td>
-                        <button type="button" data-setLike data-prodNo="${product.prodNo}">
-                            찜하기
-                        </button>
-                    </td>
-                <tr/>
+                                <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '판매완료' : ''}"/>
+                                <c:set var="resultB2" value=""/>
+                                <c:if test="${menu == 'manage' || menu == 'ok'}">
+                                    <c:set var="resultB2" value="${product.proTranCode.trim() == 'b' ? '배송하기' : ''}"/>
+                                </c:if>
+                                <c:set var="resultC" value="${product.proTranCode.trim() == 'c' ? '배송중' : ''}"/>
+                                <c:set var="resultD" value="${product.proTranCode.trim() == 'd' ? '배송완료' : ''}"/>
+                                ${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
+                                <span class="clickableSpan" data-update
+                                      data-prodNo="${product.prodNo}">${resultB2}</span>${resultC}${resultD}
+                            </c:if>
+                            <c:if test="${product.proTranCode=='a'}">
+                                <button type="button" class="btn btn-primary" data-getProduct data-prodNo="${product.prodNo}">상품보기</button>
+                            </c:if>
+                            <c:if test="${!(product.proTranCode=='a')}">
+                                <button type="button" class="disabled btn btn-primary" data-getProduct data-prodNo="${product.prodNo}">상품보기</button>
+                            </c:if>
+                            <button type="button" data-setLike data-prodNo="${product.prodNo}">
+                                찜하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </c:forEach>
-            </tbody>
-        </table>
+            </div>
 
         <jsp:include page="${pageContext.request.contextPath}/common/pageNavigator_new.jsp"/>
 
-            <div class="col-md-10"></div>
-            <div class="col-md-2 "><button type="button" class="btn btn-primary" data-toImage>이미지로 보기<span aria-hidden="true"> &nbsp&rarr;</span></button></div>
+            <div class="col-md-12 text-right"><button type="button" class="btn btn-primary" data-toTable>테이블로 보기<span aria-hidden="true"> &nbsp&rarr;</span></button></div>
 
 
         <!--  페이지 Navigator 끝 -->
 
 
-    </div>
+
 </div>
 
 
@@ -228,8 +215,8 @@
         $('input[name=searchType]').click(function () {
             fncGetList('1');
         })
-        $('button[data-toImage]').click(function () {
-            window.location.href = "/product/listProduct?menu=${menu}&image=ok";
+        $('button[data-toTable]').click(function () {
+            window.location.href = "/product/listProduct?menu=${menu}";
         })
 
         $('input[name="searchKeyword"]').autocomplete({
@@ -336,6 +323,6 @@
         // };
     });//end of ready
 </script>
-
 </body>
+
 </html>

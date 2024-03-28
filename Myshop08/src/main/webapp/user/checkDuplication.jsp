@@ -23,7 +23,7 @@
 
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style></style>
-
+	<link rel="stylesheet" href="/css/font.css" type="text/css">
 	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 
@@ -75,7 +75,7 @@
 
 </head>
 
-<body>
+<body class="default-font">
 
 <!--  화면구성 div Start /////////////////////////////////////-->
 <div class="container">

@@ -27,7 +27,7 @@
 
 	<!-- Bootstrap Dropdown Hover JS -->
 	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-
+	<link rel="stylesheet" href="/css/font.css" type="text/css">
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
 		body {
@@ -96,7 +96,7 @@
 
 </head>
 
-<body>
+<body class="default-font">
 
 <!-- ToolBar Start /////////////////////////////////////-->
 <jsp:include page="/layout/toolbar.jsp" />

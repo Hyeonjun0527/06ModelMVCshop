@@ -21,22 +21,23 @@
 	<!-- Bootstrap Dropdown Hover CSS -->
    <link href="/css/animate.min.css" rel="stylesheet">
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-	
+
 	<!--  CSS 추가 : 툴바에 화면 가리는 현상 해결 :  주석처리 전, 후 확인-->
 	<style>
         body {
             padding-top : 70px;
         }
    	</style>
-   	
+    <link rel="stylesheet" href="/css/font.css" type="text/css">
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	 	
 	
 </head>
 	
-<body>
+<body class="default-font">
 
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<jsp:include page="/layout/toolbar.jsp" />
