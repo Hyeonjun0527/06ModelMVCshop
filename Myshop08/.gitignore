@@ -141,3 +141,5 @@ fabric.properties
 
 #modules.xml
 *.iml
+
+.idea/
