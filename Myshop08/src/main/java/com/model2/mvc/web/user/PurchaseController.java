@@ -236,7 +236,7 @@ public class PurchaseController {
                                        @RequestParam("menu") String menu) throws Exception {
         System.out.println("/updateTranCode가 시작됩니다...");
 
-        Purchase purchase = purchaseService.getPurchase(prodNo);
+        Purchase purchase = purchaseService.getPurchaseProdNo(prodNo);
         System.out.println("updateTranCode :: 여기서 " + purchase);
 
         if (CommonUtil.null2str(purchase.getTranCode()).equals("b")) {
@@ -259,7 +259,7 @@ public class PurchaseController {
         if(navigationPage.equals("listProduct")) {
             if(menu.equals("manage")) {
                 System.out.println( "redirect:/purchase/listProduct?menu=manage"+"합니다.");
-                viewName = "redirect:/purchase/listProduct?menu=manage";
+                viewName = "redirect:/product/listProduct?menu=manage";
             }
         }else if(navigationPage.equals("listPurchase")){
 

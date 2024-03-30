@@ -7,6 +7,7 @@
 			◀ 이전
 	</c:if>
 	<!-- 요청페이지 <= 페이지번들당 페이지 수. 이전  6 > 5 이면 누를 수 있게 함!-->
+<%--6---%>
 	<c:if test="${resultPage.currentPage > resultPage.pageUnit }">
 	<!--   [[[6-5 = 1]]]    [[[11-5 = 6]]]  !-->
 			<a href="javascript:fncGetList('${resultPage.beginUnitPage-resultPage.pageUnit}')">◀ 이전</a>

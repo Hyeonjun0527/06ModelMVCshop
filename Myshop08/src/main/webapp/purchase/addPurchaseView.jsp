@@ -9,7 +9,21 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <title>Insert title here</title>
+	<%--Á¦ÀÌÄõ¸®--%>
+	<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 
+	<%--ºÎÆ®½ºÆ®·¦--%>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<%-- ºÎÆ®½ºÆ®·¦ Dropdown Hover CSS JS--%>
+	<link href="/css/animate.min.css" rel="stylesheet">
+	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	<script
+			src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"
+			integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY="
+			crossorigin="anonymous"></script>
 <script type="text/javascript" src="../javascript/calendar.js">
 </script>
 
@@ -53,6 +67,7 @@ function fncAddPurchase() {
 
 }//end of fncAddPurchase
 	$("[data-calendar]").click(function(){
+		console.log('¾È³ç');
 		show_calendar('document.detailForm.divyDate',$("form[name='detailForm'] input[name='divyDate']").val());
 	});
 	$("button[data-addPurchase]").click(function() {

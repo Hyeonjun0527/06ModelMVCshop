@@ -202,7 +202,6 @@ public class ProductRestController {
         map.put("products", products);
         map.put("search", search);
         map.put("resultPage", page);
-        map.put("menu", menu);
 
         System.out.println("/likeProduct이 끝났습니다..");
 
@@ -229,12 +228,12 @@ public class ProductRestController {
 //        if(search.getSearchType() == null) {
 //            search.setSearchType("1");
 //        }
-
+        //하나라도 널이면 널 아니게...
         if (searchBoundFirst == null && searchBoundEnd == null) {
             searchBoundFirst = 0;
             searchBoundEnd = 0;
         }
-        //바인딩 : 클라-searchBoundFirst, searchBoundEnd > search도메인
+        //바인딩 : 클라-searchBoundFirst, searchBoundEnd가 뭐라도 있으면 search도메인
         if (!(searchBoundFirst == 0) || !(searchBoundEnd == 0)) {
             search.setSearchBoundFirst(searchBoundFirst);
             search.setSearchBoundEnd(searchBoundEnd);
@@ -243,12 +242,85 @@ public class ProductRestController {
         }
 
 
-        //바인딩 : 클라-currentPage > search도메인 > page도메인
+        //바인딩 : 클라-currentPage -> search도메인 -> page도메인
         int currentPage = 1;
         //경로 1,2,3,4로 들어왔을경우
         if (search.getCurrentPage() != 0) {
             currentPage = search.getCurrentPage();
         }
+
+        search.setCurrentPage(currentPage);
+        search.setPageSize(pageSize);
+
+        Map<String, Object> productMap = productService.getProductList(search);//Like와 다른 부분
+
+        Page page = new Page(
+                currentPage,
+                (Integer) productMap.get("totalCount"),
+                pageUnit,
+                pageSize);
+
+        System.out.println("ListProductAction ::" + page);
+        System.out.println("products :: " + productMap.get("list"));
+        System.out.println("search :: " + search);
+
+        //Model 과 View 연결
+        //model.addAttribute("search", search);
+//        model.addAttribute("totalCount", productMap.get("totalCount"));
+//        model.addAttribute("list", productMap.get("list"));
+//        model.addAttribute("resultPage", page);
+//        model.addAttribute("menu", menu);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("products", productMap.get("list"));
+        map.put("totalCount", productMap.get("totalCount"));
+        map.put("resultPage", page);
+        map.put("menu", menu);
+        map.put("search", search);
+
+
+        System.out.println("/listProduct이 끝났습니다..");
+
+        //네비게이션
+        if (menu != null) {
+            System.out.println("forward:/product/listProduct.jsp" + "합니다.");
+            map.put("navigation", "forward:/product/listProduct.jsp");
+        } else {
+            System.out.println("forward:/product/getProduct.jsp" + "합니다.");
+            map.put("navigation", "forward:/product/getProduct.jsp");
+        }//end of else
+
+        return ResponseEntity.status(HttpStatus.OK).body(map);
+    }//end of listProduct
+    @RequestMapping("/listProductImg")//작동됨
+    public ResponseEntity<?> listProductImg(@ModelAttribute(value = "search") Search search,
+                                         @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
+                                         @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
+                                         @RequestParam(value = "menu", required = false) String menu) throws Exception {
+        System.out.println("/listProduct이 시작됩니다..");
+        System.out.println("searchBound :: " + searchBoundFirst + " " + searchBoundEnd);
+        System.out.println("searchType :: " + search.getSearchType());
+//        if(search.getSearchType() == null) {
+//            search.setSearchType("1");
+//        }
+        //하나라도 널이면 널 아니게...
+        if (searchBoundFirst == null && searchBoundEnd == null) {
+            searchBoundFirst = 0;
+            searchBoundEnd = 0;
+        }
+        //바인딩 : 클라-searchBoundFirst, searchBoundEnd가 뭐라도 있으면 search도메인
+        if (!(searchBoundFirst == 0) || !(searchBoundEnd == 0)) {
+            search.setSearchBoundFirst(searchBoundFirst);
+            search.setSearchBoundEnd(searchBoundEnd);
+//                System.out.println("searchBound[0]"+searchBound[0]);
+//                System.out.println("searchBound[1]"+searchBound[1]);
+        }
+
+        if(search.getCurrentPage()==0){
+            search.setCurrentPage(1);
+        }
+        //바인딩 : 클라-currentPage -> search도메인 -> page도메인
+        int currentPage = search.getCurrentPage() + 1;
 
         search.setCurrentPage(currentPage);
         search.setPageSize(pageSize);

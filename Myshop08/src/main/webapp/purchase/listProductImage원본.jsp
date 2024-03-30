@@ -1,3 +1,4 @@
+
 <!-- 상품목록조회 -->
 <%@page import="org.apache.jasper.tagplugins.jstl.core.Param" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
@@ -24,23 +25,24 @@
             src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"
             integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY="
             crossorigin="anonymous"></script>
-    <script src="/javascript/thumbnailEvent.js"></script>
     <link rel="stylesheet" href="/css/font.css" type="text/css">
-    <link rel="stylesheet" href="/css/loading.css" type="text/css">
     <style>
         body {
             padding-top: 50px;
         }
-        .thumbnail > .imgWrapper {
-            display: inline-block;
-            weight:240px;
-            height:300px;
+
+        .max-size {
+            max-width: 100px !important;
+            max-height: 100px !important;
         }
 
-        .thumbnail > .imgWrapper > img.threeD {
+        .thumbnail .imgWrapper {
+            display: inline-block;
+        }
+
+        .thumbnail .imgWrapper img.threeD {
             height: 100%;
-            width: 100%;
-            border-radius: 10px;
+            width: auto;
             display: block;
         }
     </style>
@@ -53,10 +55,18 @@
 <jsp:include page="/layout/toolbar.jsp"/>
 <script>
 
+    let type = '${search.searchType}';//없으면 정말 아무것도 없는 공백이 됨.''가 됨
+    let searchBoundFirst = '${search.searchBoundFirst}';//'0'이 됨
+    let searchBoundEnd = '${search.searchBoundEnd}';
 
+    let menu = '${menu}';
+    console.log(menu);
+    console.log('jsp에서 searchBoundFirst', searchBoundFirst);
+    console.log('jsp에서 searchBoundEnd', searchBoundEnd);
+    console.log('jsp에서 type', type);
 
 </script>
-<div class="container main">
+<div class="container">
 
     <div class="page-header text-info">
         <h3>${menu=='manage' ? '상품관리' :'상품목록조회'}</h3>
@@ -134,53 +144,40 @@
         </form>
     </div>
 
-
+<%--    <div class="imgWrapper">--%>
+<%--        <img class="threeD" src="https://search3.kakaocdn.net/argon/229x0_80_wr/EDQbl0Cz2S0"/>--%>
+<%--    </div>--%>
     <div class="row">
         <c:set var="i" value="0"/>
-        <c:set var="j" value="0"/>
         <c:forEach var="product" items="${list}">
             <c:set var="i" value="${i+1}"/>
             <div class="col-sm-6 col-md-4">
                 <p>No : ${i}</p>
                 <div class="thumbnail">
-                    <c:forEach var="fileName" items="${fileNameListList[j]}">
-                        <c:if test="${fileName!='null'}">
-                            <div class="imgWrapper">
-                                <img class="threeD" src="${pageContext.request.contextPath}/images/uploadFiles/${fileName}"/>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                    <c:if test="${fileNameListList[j]==null}">
-                        <div class="imgWrapper">
-                            <img class="threeD" src="${pageContext.request.contextPath}/images/uploadFiles/피카츄.jpg"/>
+                    <c:forEach var="fileName" items="${fileNameList}">
+                        <div class="col-xs-8 col-md-4 imgWrapper">
+                            <img class="threeD" src="${pageContext.request.contextPath}/images/uploadFiles/${fileName}"/>
                         </div>
-                    </c:if>
-                    <c:set var="j" value="${j+1}"/>
+                    </c:forEach>
                     <div class="caption">
-
                         <h3>상품명 : ${product.prodName}</h3>
                         <p>상품설명 : </p>
                         <p>가격 : ${product.price}</p>
-
-                        <p>현재상태 :
+                        <p>현재상태 : </p>
                         <c:if test="${product.proTranCode!=null}">
                             <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '판매중' : ''}"/>
 
+                            <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '판매완료' : ''}"/>
+                            <c:set var="resultB2" value=""/>
                             <c:if test="${menu == 'manage' || menu == 'ok'}">
-                                <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '판매완료' : ''}"/>
                                 <c:set var="resultB2" value="${product.proTranCode.trim() == 'b' ? '배송하기' : ''}"/>
-                                <c:set var="resultC" value="${product.proTranCode.trim() == 'c' ? '배송중' : ''}"/>
-                                <c:set var="resultD" value="${product.proTranCode.trim() == 'd' ? '배송완료' : ''}"/>
                             </c:if>
-                                    ${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
-                                <c:if test="${!(menu == 'manage' || menu == 'ok')&&product.proTranCode.trim()!='a'}">
-                                    판매완료
-                                </c:if>
-                                <span class="clickableSpan" data-update
-                                      data-prodNo="${product.prodNo}">${resultB2}</span>${resultC}${resultD}
+                            <c:set var="resultC" value="${product.proTranCode.trim() == 'c' ? '배송중' : ''}"/>
+                            <c:set var="resultD" value="${product.proTranCode.trim() == 'd' ? '배송완료' : ''}"/>
+                            ${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
+                            <span class="clickableSpan" data-update
+                                  data-prodNo="${product.prodNo}">${resultB2}</span>${resultC}${resultD}
                         </c:if>
-                        </p>
-
                         <c:if test="${product.proTranCode=='a'}">
                             <button type="button" class="btn btn-primary" data-getProduct
                                     data-prodNo="${product.prodNo}">상품보기
@@ -191,7 +188,7 @@
                                     data-prodNo="${product.prodNo}">상품보기
                             </button>
                         </c:if>
-                        <button type="button" class="btn btn-primary" data-setLike data-prodNo="${product.prodNo}">
+                        <button type="button" data-setLike data-prodNo="${product.prodNo}">
                             찜하기
                         </button>
                     </div>
@@ -200,36 +197,23 @@
         </c:forEach>
     </div>
 
+    <jsp:include page="${pageContext.request.contextPath}/common/pageNavigator_new.jsp"/>
+
     <div class="col-md-12 text-right">
         <button type="button" class="btn btn-primary" data-toTable>테이블로 보기<span aria-hidden="true"> &nbsp&rarr;</span>
         </button>
     </div>
 
+
+    <!--  페이지 Navigator 끝 -->
+
+
 </div>
 
-<div class="loading-container" style="display: none">
-    <div class="loading"></div>
-    <div id="loading-text">loading</div>
-</div>
 
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/javascript/variousSearch.js"></script>
 <script>
-    let menu = '${param.menu}';
-    let currentPage = +`${search.currentPage}`;
-    let searchKeyword = '${search.searchKeyword}';
-    let searchCondition = '${search.searchCondition}';
-    let searchType = `${search.searchType}`;
-    let searchBoundFirst = '${param.searchBoundFirst}';
-    let searchBoundEnd = '${param.searchBoundEnd}';
-    let type = '${search.searchType}';//없으면 정말 아무것도 없는 공백이 됨.''가 됨
-
-    console.log(menu);
-    console.log('jsp에서 searchBoundFirst', searchBoundFirst);
-    console.log('jsp에서 searchBoundEnd', searchBoundEnd);
-    console.log('jsp에서 type', type);
-
     $(document).ready(function () {
-
         $('td.ct_btn01[data-search] button:contains("검색")').click(function () {
             fncGetList('1');
         });
@@ -363,19 +347,14 @@
         });
 
         imgWrapper.on('mousemove', function (e) {
-            let num = 10;
-            let x = e.offsetX//0~240  0일때 rotateY(20deg) 240일때 rotateY(-20deg)
-            // 20 = 0*a + b  -20 = 240*a + b
-            // b= 20 a = -20*2/240
+            let x = e.offsetX//0~240  0일때 rotateY(20deg) /240일때 rotateY(-20deg)
+            //         20 = 0*a + b           / -20 = 240*a + b
+            let y = e.offsetY//0~300 0일때 rotateX(-20deg) /300일때 rotateX(20deg)
+            //      -20 = 0*a + b           20 = 300*a + b
+            console.log(x, y);//
 
-            let y = e.offsetY//0~300 0일때 rotateX(-20deg) 300일때 rotateX(20deg)
-            // -20 = 0*a + b  20 = 300*a + b
-            // b = -20 a= 40*2/240
-
-            console.log(x, y);
-
-            let rotateY = -num*2 / 240 * x + num
-            let rotateX = num*2 / 300 * y - num
+            let rotateY = -40 / 240 * x + 20
+            let rotateX = 40 / 300 * y - 20
             console.log(rotateY, rotateX);
 
             $(this).css('transform', 'perspective(350px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)');
@@ -398,83 +377,11 @@
             $(this).css('transition', '');
         });
 
-
-        let isLoading = false;
-        $(window).scroll(function() {
-            if (isLoading) return;
-
-            console.log("도큐먼트 헤이트"+$(document).height());
-            // console.log("바디 스크롤헤이트 :: " + document.body.scrollHeight);
-            console.log("윈도우 헤이트"+$(window).height());
-            // console.log("이너헤이트" + window.innerHeight);
-            console.log("스크롤탑 :: "+$(window).scrollTop());
-            console.log("=========================");
-            var scrollTop = $(window).scrollTop();
-            var windowHeight = $(window).height();
-            var documentHeight = $(document).height();
-            var offset = 5; // 새로운 콘텐츠를 로드할 스크롤 위치의 오프셋, 얘를 늘리면 하단바 끝까지 안가도 생김
-            var offsetReposition = 100;
-            // 스크롤이 페이지 하단에 도달했는지 확인
-            if (scrollTop + windowHeight >= documentHeight - offset) {
-                isLoading = true;
-                // 여기서 새로운 콘텐츠를 불러오는 로직을 구현합니다.
-                // 예시: 새로운 콘텐츠를 페이지에 추가
-                console.log('이벤트발생');
-
-                $('.loading-container').show();
-
-                //에이젝스니 서버를 갔다오는데 그것도 새로운 HTTP요청, 새로운 스코프이다.
-                //서버에서 currentPage에 1을 더하면 된다.
-
-                $.ajax(
-                    {
-                        url:"json/listProductImg",
-                        method:"POST",
-                        dataType:"json",
-                        headers: {
-                            "Accept": "application/json",
-                            "Content-Type": "application/json"
-                        },
-                        data: JSON.stringify({
-                            currentPage : currentPage,
-                            searchKeyword: searchKeyword,
-                            searchCondition: searchCondition,
-                            searchType:searchType,
-                            searchBoundFirst:searchBoundFirst,
-                            searchBoundEnd:searchBoundEnd,
-                            menu:menu
-                        }),
-                    }).done(function (data) {
-                    console.log("받은 데이터" + JSON.stringify(data));
-
-                    setTimeout(function () {
-                        window.scrollTo(0,scrollTop-offsetReposition)
-                        $('.loading-container').hide();
-                        makeThumbnail(data);
-                        console.log("currentPage :: "+currentPage);
-                        isLoading = false;
-                    }, 800);
-
-                    }).fail(function(jqXHR, textStatus, errorThrown){
-                        console.log('실패');
-                        console.log(jqXHR);
-                        console.log(textStatus);
-                        console.log(errorThrown);
-                    });
-
-
-
-            };//end of if
-        });//end of scroll
-
-
-
         // $.ui.autocomplete.prototype._close = function(event) {
-        //     // 검색어 닫힘 동작을 무시하거나 조건에 따라 처리
+        //     // 닫힘 동작을 무시하거나 조건에 따라 처리
         // };
     });//end of ready
 </script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/javascript/variousSearch.js"></script>
 </body>
 
 </html>

@@ -5,11 +5,9 @@
 
  
 <div class="container text-center">
-		 
 		 <nav>
 		  <!-- 크기조절 :  pagination-lg pagination-sm-->
 		  <ul class="pagination" >
-		    
 		    <!--  <<== 좌측 nav 현재페이지6이고 페이지유닛 5이면 좌측 nav 생성-->
 		  	<c:if test="${ resultPage.currentPage <= resultPage.pageUnit }">
 		 		<li class="disabled">
@@ -17,7 +15,7 @@
 			<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
 				<li>
 			</c:if>
-		      <a href="javascript:fncGetList('${ resultPage.currentPage-1}')" aria-label="Previous">
+		      <a href="javascript:fncGetList('${resultPage.beginUnitPage-1}')" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>

@@ -13,6 +13,7 @@ public interface PurchaseMapper {
 
     public void addPurchase(Purchase purchase) throws Exception;
     public Purchase getPurchase(int tranNo) throws Exception;
+    public Purchase getPurchaseProdNo(int prodNo) throws Exception;
     public List<Map<String,Object>> getPurchaseList(@Param("map") Map<String,Object> map) throws Exception;
     public Map<String,Object> getSaleList(Search search) throws Exception;
     public void updatePurchase(Purchase purchase) throws Exception;

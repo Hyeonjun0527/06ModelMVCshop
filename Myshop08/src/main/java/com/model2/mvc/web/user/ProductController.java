@@ -205,6 +205,7 @@ public class ProductController {
                               @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
                               @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
                               @RequestParam(value = "menu", required = false) String menu,
+                              //image는 이미지로 볼거냐 이거다. 이미지파일 보내는거 아님.
                               @RequestParam(value = "image", required = false) String image,
                               Model model) throws Exception {
         System.out.println("/listProduct이 시작됩니다..");
@@ -238,6 +239,22 @@ public class ProductController {
         search.setPageSize(pageSize);
 
         Map<String, Object> productMap = productService.getProductList(search);//Like와 다른 부분
+        List<Product> list = (List<Product>)productMap.get("list");
+        List<List<String>> fileNameListList = new ArrayList<>();
+
+        Optional.ofNullable(image)
+                .filter(img -> img.equals("ok"))
+                .ifPresent(img -> {
+                    Optional.ofNullable(list)//Optional<List<Product>>
+                            .ifPresent(lst -> lst.stream()
+                                    .flatMap(product -> Optional.ofNullable(product.getFileName())
+                                            .map(fileName -> fileName.split(","))
+                                            .stream())
+                                    .forEach(array -> Optional.ofNullable(fileNameListList)
+                                            .ifPresent(fListList -> fListList.add(Arrays.asList(array)))));
+
+                    fileNameListList.forEach(fileNameList -> System.out.println("fileNameList :: " + fileNameList));
+                });
 
         Page page = new Page(
                 currentPage,
@@ -246,8 +263,9 @@ public class ProductController {
                 pageSize);
 
         System.out.println("ListProductAction ::" + page);
-        System.out.println("products :: " + productMap.get("list"));
+        System.out.println("list :: " + list);
         System.out.println("search :: " + search);
+
 
 
 
@@ -255,9 +273,14 @@ public class ProductController {
         //model.addAttribute("products", products);
         //model.addAttribute("search", search);
         model.addAttribute("totalCount", productMap.get("totalCount"));
-        model.addAttribute("list", productMap.get("list"));
+        model.addAttribute("list", list);
         model.addAttribute("resultPage", page);
         model.addAttribute("menu", menu);
+
+        Optional.ofNullable(image)
+                        .filter(img -> img.equals("ok"))
+                                .ifPresent(img -> model.addAttribute("fileNameListList",fileNameListList));
+
 
         System.out.println("/listProduct이 끝났습니다..");
 

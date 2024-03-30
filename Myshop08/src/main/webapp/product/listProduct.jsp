@@ -19,11 +19,11 @@
     <link href="/css/animate.min.css" rel="stylesheet">
     <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
     <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-    <%--사용자--%>
     <script
             src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"
             integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY="
             crossorigin="anonymous"></script>
+    <%--사용자--%>
     <link rel="stylesheet" href="/css/font.css" type="text/css">
     <style>
         body {
@@ -103,7 +103,7 @@
                            value="${! empty search.searchKeyword ? search.searchKeyword : '' }">
                 </div>
 
-                <button type="button" class="btn btn-default">검색</button>
+                <button type="button" class="btn btn-default" data-search>검색</button>
                 <input type="hidden" id="currentPage" name="currentPage" value=""/>
 
             </div>
@@ -168,15 +168,19 @@
 
                         <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '판매중' : ''}"/>
 
-                        <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '판매완료' : ''}"/>
-                        <c:set var="resultB2" value=""/>
                     <c:if test="${menu == 'manage' || menu == 'ok'}">
+                        <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '판매완료' : ''}"/>
                         <c:set var="resultB2" value="${product.proTranCode.trim() == 'b' ? '배송하기' : ''}"/>
-                    </c:if>
                         <c:set var="resultC" value="${product.proTranCode.trim() == 'c' ? '배송중' : ''}"/>
                         <c:set var="resultD" value="${product.proTranCode.trim() == 'd' ? '배송완료' : ''}"/>
-
-                    <td align="left">${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
+                    </c:if>
+                    <td align="left">
+                            ${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
+                    <c:if test="${!(menu == 'manage' || menu == 'ok')}">
+                        <c:if test="${!(menu == 'manage' || menu == 'ok')&&product.proTranCode.trim()!='a'}">
+                            판매완료
+                        </c:if>
+                    </c:if>
                         <span class="clickableSpan" data-update
                               data-prodNo="${product.prodNo}">${resultB2}</span>${resultC}${resultD}
                     </td>
@@ -207,7 +211,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/javascript/variousSearch.js"></script>
 <script>
     $(document).ready(function () {
-        $('td.ct_btn01[data-search] button:contains("검색")').click(function () {
+        $('button.btn[data-search]:contains("검색")').click(function () {
+            console.log('실행됫나보자.')
             fncGetList('1');
         });
         $('button[data-searchBound]:contains("검색")').click(function () {
@@ -217,7 +222,7 @@
             let prodNo = $(this).data('prodno');
             window.location.href = "/product/getProduct?prodNo=" + prodNo + "&menu=${menu}";
         });
-        $('button[data-update]').click(function () {
+        $('span.clickableSpan').click(function () {
             let prodNo = $(this).data('prodno');
             window.location.href = "/purchase/updateTranCode?prodNo=" + prodNo + "&navigationPage=listProduct&menu=manage";
         })
@@ -287,10 +292,13 @@
 
                         let data = $.map(rawData, mapper);
                         console.log('data : ' + data);
+                        //데이터 각 항목마다 콜백함수 호출한다.
                         $.each(data, function (index, obj) {
                             console.log(obj);
                         })
                         console.log("data[0] : " + JSON.stringify(data[0]));
+                        //RegExp 정규표현식. ^는 시작을 의미. i는 대소문자 구분없이 escapeRegex는 특수문자를 이스케이프
+                        //.test는 정규표현식에 맞는지 확인하고 true반환, $.grep은 true만 모아서 새 배열
                         let matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
                         console.log($.grep(data, function (item) {
                             return matcher.test(item.label);
