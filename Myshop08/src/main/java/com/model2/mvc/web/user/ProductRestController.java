@@ -293,7 +293,7 @@ public class ProductRestController {
         return ResponseEntity.status(HttpStatus.OK).body(map);
     }//end of listProduct
     @RequestMapping("/listProductImg")//작동됨
-    public ResponseEntity<?> listProductImg(@ModelAttribute(value = "search") Search search,
+    public ResponseEntity<?> listProductImg(@RequestBody Search search,
                                          @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
                                          @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
                                          @RequestParam(value = "menu", required = false) String menu) throws Exception {
@@ -316,8 +316,10 @@ public class ProductRestController {
 //                System.out.println("searchBound[1]"+searchBound[1]);
         }
 
+        System.out.println("search.getCurrentPage()"+search.getCurrentPage());
         if(search.getCurrentPage()==0){
             search.setCurrentPage(1);
+            System.out.println("CurrentPage가 1이 됐다.");
         }
         //바인딩 : 클라-currentPage -> search도메인 -> page도메인
         int currentPage = search.getCurrentPage() + 1;

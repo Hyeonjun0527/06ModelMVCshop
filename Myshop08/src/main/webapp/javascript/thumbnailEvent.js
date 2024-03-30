@@ -3,7 +3,7 @@ function makeThumbnail(JsonData) {
     console.log(`JsonData :: ` + JSON.stringify(JsonData) );
 
     console.log("JsonData.search.currentPage :: " + JsonData.search.currentPage);
-    currentPage = JsonData.search.currentPage;
+        currentPage = JsonData.search.currentPage;
 
     let i = currentPage;
     let products = 0;
@@ -30,12 +30,21 @@ function makeThumbnail(JsonData) {
                 `;//end of append
 
             product.fileName?.split(",").forEach(function (fileName) {
+                if(fileName!='null'){
                 returnPage += `
                         <div class="imgWrapper">
                             <img class="threeD" src="/images/uploadFiles/"+${fileName}/>
                         </div>
                         `;
+                }
             });
+            if(!product.fileName){
+                returnPage += `
+                        <div class="imgWrapper">
+                            <img class="threeD" src="/images/uploadFiles/ÇÇÄ«Ãò.jpg"/>
+                        </div>
+                `;
+            }
 
             returnPage += `
                         <div class="caption">

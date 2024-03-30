@@ -420,6 +420,7 @@
                 // 여기서 새로운 콘텐츠를 불러오는 로직을 구현합니다.
                 // 예시: 새로운 콘텐츠를 페이지에 추가
                 console.log('이벤트발생');
+                console.log("currentPage 이 값을 에이젝스에 보냄. :: " + currentPage);
 
                 $('.loading-container').show();
 
