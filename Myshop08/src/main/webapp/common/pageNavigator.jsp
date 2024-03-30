@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
+
 <!-- 요청페이지 <= 페이지번들당 페이지 수. 이전  3  <= 5 이면 더이상 이전 못누르게 함!-->
 	<c:if test="${resultPage.currentPage <= resultPage.pageUnit	}">
 			◀ 이전
 	</c:if>
 	<!-- 요청페이지 <= 페이지번들당 페이지 수. 이전  6 > 5 이면 누를 수 있게 함!-->
+<%--6---%>
 	<c:if test="${resultPage.currentPage > resultPage.pageUnit }">
 	<!--   [[[6-5 = 1]]]    [[[11-5 = 6]]]  !-->
 			<a href="javascript:fncGetList('${resultPage.beginUnitPage-resultPage.pageUnit}')">◀ 이전</a>

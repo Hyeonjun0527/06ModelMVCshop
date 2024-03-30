@@ -87,6 +87,40 @@
 		AND t.TRAN_NO=#{tranNo}
 	</select>
 
+	<select id="getPurchaseProdNo" parameterType="Integer" resultMap="purchaseSelectUnit">
+		select
+			t.TRAN_NO,
+			t.buyer_id,
+			t.PAYMENT_OPTION,
+			t.RECEIVER_NAME,
+			t.RECEIVER_PHONE,
+			t.DEMAILADDR ,
+			t.DLVY_REQUEST ,
+			t.TRAN_STATUS_CODE ,
+			t.ORDER_DATE ,
+			t.DLVY_DATE ,
+			p.PROD_NO ,
+			p.PROD_NAME ,
+			p.PROD_DETAIL ,
+			p.MANUFACTURE_DAY ,
+			p.PRICE ,
+			p.IMAGE_FILE ,
+			p.REG_DATE ,
+			t.TRAN_STATUS_CODE ,
+			u.USER_ID ,
+			u.USER_NAME ,
+			u.PASSWORD ,
+			u.ROLE ,
+			u.SSN ,
+			u.CELL_PHONE ,
+			u.ADDR ,
+			u.EMAIL ,
+			u.REG_DATE user_reg_date
+		from TRANSACTION t, PRODUCT p, USERS u
+		where t.prod_no = p.prod_no AND t.buyer_id = u.user_id
+		  AND t.prod_no=#{prodNo}
+	</select>
+
 	<select id="getPurchaseList" parameterType="map" resultMap="purchaseSelectMap">
 		SELECT inner_table.*,
 			   COUNT(*) OVER () AS count

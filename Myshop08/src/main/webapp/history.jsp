@@ -6,8 +6,8 @@
 <head>
 <title>열어본 상품 보기</title>
 </head>
-
-<body>
+<link rel="stylesheet" href="/css/font.css" type="text/css">
+<body class="default-font">
 	당신이 열어본 상품을 알고 있다
 	<br>
 	<br>

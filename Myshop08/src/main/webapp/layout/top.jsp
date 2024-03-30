@@ -9,8 +9,6 @@
     <link href="${pageContext.request.contextPath}/css/layout/top.css" rel="stylesheet" type="text/css">
 
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="${pageContext.request.contextPath}/javascript/layout/top.js"></script>
-
 </head>
 
 <body topmargin="0" leftmargin="0">
@@ -29,4 +27,6 @@
     </c:if>
 </div>
 </body>
+
+<script src="${pageContext.request.contextPath}/javascript/layout/top.js"></script>
 </html>

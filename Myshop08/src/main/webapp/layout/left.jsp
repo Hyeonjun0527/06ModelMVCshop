@@ -13,7 +13,7 @@
 		const userId = "${user.userId}";
 		console.log("userId"+userId);
 	</script>
-	<script src="${pageContext.request.contextPath}/javascript/layout/left.js">
+	<script src="${pageContext.request.contextPath}/javascript/layout/toolbar.js">
 	</script>
 </head>
 

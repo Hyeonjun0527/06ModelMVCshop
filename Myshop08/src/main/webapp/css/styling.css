@@ -1,12 +1,5 @@
 @charset "EUC-KR";
-.container {
-  display: grid;
-  grid-template-columns: 1fr; /* 한 열에 하나의 항목만 있도록 설정 */
-  grid-auto-rows: minmax(36px, auto);/*minmax(36px, auto)는 각 행의 최소 높이를 36px로 설정하고, 최대 높이는 컨텐츠에 따라 자동으로 조절되게 합니다.*/
-  max-width : 100px;
-  gap: 10px; /* 아이템 간격 */
-  justify-content: end;
-}
+
 .item {
   background-color: #f0f0f0;
 }

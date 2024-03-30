@@ -34,6 +34,9 @@ public class PurchaseDaoImpl implements PurchaseDao {
     public Purchase getPurchase(int tranNo) throws Exception {
         return purchaseMapper.getPurchase(tranNo);
     }
+    public Purchase getPurchaseProdNo(int prodNo) throws Exception {
+        return purchaseMapper.getPurchaseProdNo(prodNo);
+    }
 
     public Map<String, Object> getPurchaseList(Map<String,Object> map) throws Exception {
         List<Map<String,Object>> list = purchaseMapper.getPurchaseList(map);

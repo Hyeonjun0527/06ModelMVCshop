@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 상품 상세 조회-->
-<%@ page contentType="text/html; charset=EUC-KR"%>
-<%@ page pageEncoding="EUC-kr" %>
+<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page pageEncoding="EUC-KR" %>
 
 <%--
 <%
@@ -11,180 +11,166 @@ Product productVO=(Product)request.getAttribute("productVO");
 %>
 --%>
 
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
+    <meta charset="EUC-KR">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/styling.css" type="text/css">
-<title>상품상세조회</title>
+    <%--    부트스트랩--%>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <%-- 부트스트랩 Dropdown Hover CSS JS--%>
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+
+    <%--    사용자--%>
+    <link rel="stylesheet" href="/css/font.css" type="text/css">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+        .max-size {
+            max-width: 100px !important;
+            max-height: 100px !important;
+        }
+    </style>
+    <%--    <title>상품상세조회</title>--%>
 </head>
 
-<body bgcolor="#ffffff" text="#000000">
+<body>
 
-<form name="detailForm" method="post" enctype="multipart/form-data">
+<!-- ToolBar Start /////////////////////////////////////-->
+<jsp:include page="/layout/toolbar.jsp"/>
+<!-- ToolBar End /////////////////////////////////////-->
+<%-- method="post" enctype="multipart/form-data"--%>
+<div class="container default-font">
 
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
-	<tr>
-		<td width="15" height="37"><img src="/images/ct_ttl_img01.gif"	width="15" height="37"></td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">상품상세조회</td>
-					<td width="20%" align="right">&nbsp;</td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37">
-			<img src="/images/ct_ttl_img03.gif"  width="12" height="37"/>
-		</td>
-	</tr>
-</table>
+    <div class="page-header">
+        <h3 class=" text-info">상품상세조회</h3>
+        <h5 class="text-muted">상품 정보를 <strong class="text-danger">최신정보로 관리</strong>해 주세요.</h5>
+    </div>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 13px;">
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			상품번호 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="105">${requestScope.product.getProdNo()}</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${requestScope.product.getProdName()}</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			상품이미지 <img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<c:forEach var = "fileName" items="${fileNameList}">
-		<td class="ct_write01">
-			<img class="max-size" src = "${pageContext.request.contextPath}/images/uploadFiles/${fileName}"/>
-		</td>
-		</c:forEach>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			상품상세정보 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${requestScope.product.getProdDetail()}</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">제조일자</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${requestScope.product.manuDate}</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">가격</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${requestScope.product.price}</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">등록일자</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${requestScope.product.regDate}</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-</table>
+    <div class="row">
+        <div class="col-xs-4 col-md-2"><strong>상품번호</strong></div>
+        <div class="col-xs-8 col-md-4">${product.prodNo}</div>
+    </div>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
-	<tr>
-		<td width="53%"></td>
-		<td align="right">
+    <hr/>
 
-		<table border="0" cellspacing="0" cellpadding="0">
-		<%if (request.getAttribute("menu")!=null) {%>
-		<% if(request.getAttribute("menu").toString().equals("ok")){%>
-					<tr>
-				<td width="17" height="23">
-					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-				</td>
-				<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-					<a href="/product/listProduct?menu=manage">확인</a>
-				</td>
-				<td width="14" height="23">
-					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-				</td>
-			</tr>
-			<%} %>
-		<%if(!request.getAttribute("menu").toString().equals("ok")){ %>
-			<tr>
-				<td width="17" height="23">
-					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-				</td>
-				<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-					<a href="/purchase/addPurchase?prodNo=${product.prodNo}">구매</a>
-				</td>
-				<td width="14" height="23">
-					<img src="/images/ct_btnbg03.gif" width="14" height="23">
-				</td>
-				<td width="30"></td>
-		
-				<td width="17" height="23">
-					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-				</td>
-				<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-					<a href="javascript:history.go(-1)">이전</a>
-				</td>
-				<td width="14" height="23">
-					<img src="/images/ct_btnbg03.gif" width="14" height="23">
-				</td>
-			</tr>
-			<%} %>
-		<%}else {  %>
-							<tr>
-				<td width="17" height="23">
-					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-				</td>
-				<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-					
-					
-					<a href="/product/listProduct?menu=manage">확인</a>
-				</td>
-				<td width="14" height="23">
-					<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-				</td>
-			</tr>
-			<%} %>
-		</table>
+    <div class="row">
+        <div class="col-xs-4 col-md-2 "><strong>상품명</strong></div>
+        <div class="col-xs-8 col-md-4">${product.prodName}</div>
+    </div>
 
-		</td>
-	</tr>
-</table>
-</form>
+    <hr/>
 
+    <div class="row">
+        <div class="col-xs-4 col-md-2 "><strong>상품이미지</strong></div>
+        <c:forEach var="fileName" items="${fileNameList}">
+            <div class="col-xs-8 col-md-4">
+                <img class="max-size" src="${pageContext.request.contextPath}/images/uploadFiles/${fileName}"/>
+            </div>
+        </c:forEach>
+        ${product.fileName}
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-xs-4 col-md-2 "><strong>상품상세정보</strong></div>
+        <div class="col-xs-8 col-md-4">${product.prodDetail}</div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-xs-4 col-md-2"><strong>제조일자</strong></div>
+        <div class="col-xs-8 col-md-4">${product.manuDate}</div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-xs-4 col-md-2 "><strong>가격</strong></div>
+        <div class="col-xs-8 col-md-4">${product.price}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4 col-md-2 "><strong>등록일자</strong></div>
+        <div class="col-xs-8 col-md-4">${product.regDate}</div>
+    </div>
+
+    <hr/>
+
+
+    <div class="row">
+    <c:if test="${menu}!=null">
+        <c:if test="${menu}=='ok'">
+
+            <div class="col-sm-offset-4  col-sm-4 text-center ">
+                <button type="button" class="btn btn-primary confirm">확인</button>
+            </div>
+
+        </c:if>
+        <c:if test="${menu}!='ok'">
+            <div class="col-sm-offset-4  col-sm-4 text-center ">
+                <button type="button" class="btn btn-primary buy">구매</button>
+            </div>
+            <div class="col-sm-offset-4  col-sm-4 text-center ">
+                <button type="button" class="btn btn-primary back">이전</button>
+            </div>
+        </c:if>
+        </c:if>
+        <c:if test="${menu}==null">
+            <div class="col-sm-offset-4  col-sm-4 text-center ">
+                <button type="button" class="btn btn-primary confirm">확인</button>
+            </div>
+        </c:if>
+    </div>
+
+
+    <div class="row">
+                <div class="col-sm-offset-8  col-sm-4 text-center ">
+                    <button type="button" class="btn btn-primary buy">구매하기</button>
+                    <button type="button" class="btn btn-primary confirm">상품목록으로..</button>
+                    <button type="button" class="btn btn-primary back">이전</button>
+                </div>
+    </div>
+
+    <br/>
+</div>
+
+
+<%--<div class="col-sm-offset-4  col-sm-4 text-center">--%>
+<%--    <button type="button" class="btn btn-primary add">등&nbsp;록</button>--%>
+<%--    <button type="button" class="btn btn-primary cancel">취&nbsp;소</button>--%>
+<%--    <button type="button" class="btn btn-primary back">뒤로가기</button>--%>
+<%--</div>--%>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("button.confirm").bind('click', function () {
+            self.location = "/product/listProduct?menu=manage";
+        });
+        $("button.buy").bind('click', function () {
+            self.location = "/purchase/addPurchase?prodNo=${product.prodNo}";
+        })
+        $("button.back").bind('click', function () {
+            history.go(-1);
+        })
+
+        //어드민계정으로 구매 X
+        if('${user.role}'=='admin'){
+            $("button.buy").prop('disabled', true);
+        }
+
+    });//end of ready
+</script>
 </body>
+
 </html>

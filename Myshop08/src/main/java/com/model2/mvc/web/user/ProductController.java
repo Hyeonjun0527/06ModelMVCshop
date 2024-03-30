@@ -1,5 +1,6 @@
 package com.model2.mvc.web.user;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
 import com.model2.mvc.common.util.CookieUtil;
@@ -106,8 +107,10 @@ public class ProductController {
         //Model 과 View 연결
         // 메서드내에서 참조변수에 도메인을 재할당해버린 경우에는
         // ModelAttribute가 인식을 하지 못한다.
-        List<String> fileNameList = Arrays.asList(product.getFileName().split(","));//1234,1234,1,
-
+        List<String> fileNameList = new ArrayList<>();
+        if(product.getFileName() != null){
+            fileNameList = Arrays.asList(product.getFileName().split(","));//1234,1234,1,
+        }
         System.out.println(fileNameList.toString());
 
         model.addAttribute("fileNameList", fileNameList);
@@ -192,12 +195,8 @@ public class ProductController {
         System.out.println("/likeProduct이 끝났습니다..");
 
         //네비게이션
-        if (menu != null) {
             return "forward:/product/likeProduct.jsp";
-        } else {
-            System.out.println("forward:/product/getProduct.jsp" + "합니다.");
-            return "forward:/product/getProduct.jsp";
-        }//end of else
+
     }//end of likeProduct
 
     //클라-searchBoundFirst,searchBoundEnd,search,menu,products,page
@@ -206,6 +205,8 @@ public class ProductController {
                               @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
                               @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
                               @RequestParam(value = "menu", required = false) String menu,
+                              //image는 이미지로 볼거냐 이거다. 이미지파일 보내는거 아님.
+                              @RequestParam(value = "image", required = false) String image,
                               Model model) throws Exception {
         System.out.println("/listProduct이 시작됩니다..");
         System.out.println("searchBound :: " + searchBoundFirst + " " + searchBoundEnd);
@@ -238,6 +239,22 @@ public class ProductController {
         search.setPageSize(pageSize);
 
         Map<String, Object> productMap = productService.getProductList(search);//Like와 다른 부분
+        List<Product> list = (List<Product>)productMap.get("list");
+        List<List<String>> fileNameListList = new ArrayList<>();
+
+        Optional.ofNullable(image)
+                .filter(img -> img.equals("ok"))
+                .ifPresent(img -> {
+                    Optional.ofNullable(list)//Optional<List<Product>>
+                            .ifPresent(lst -> lst.stream()
+                                    .flatMap(product -> Optional.ofNullable(product.getFileName())
+                                            .map(fileName -> fileName.split(","))
+                                            .stream())
+                                    .forEach(array -> Optional.ofNullable(fileNameListList)
+                                            .ifPresent(fListList -> fListList.add(Arrays.asList(array)))));
+
+                    fileNameListList.forEach(fileNameList -> System.out.println("fileNameList :: " + fileNameList));
+                });
 
         Page page = new Page(
                 currentPage,
@@ -246,25 +263,43 @@ public class ProductController {
                 pageSize);
 
         System.out.println("ListProductAction ::" + page);
-        System.out.println("products :: " + productMap.get("list"));
+        System.out.println("list :: " + list);
         System.out.println("search :: " + search);
+
+
+
 
         //Model 과 View 연결
         //model.addAttribute("products", products);
         //model.addAttribute("search", search);
         model.addAttribute("totalCount", productMap.get("totalCount"));
-        model.addAttribute("list", productMap.get("list"));
+        model.addAttribute("list", list);
         model.addAttribute("resultPage", page);
         model.addAttribute("menu", menu);
+
+        Optional.ofNullable(image)
+                        .filter(img -> img.equals("ok"))
+                                .ifPresent(img -> model.addAttribute("fileNameListList",fileNameListList));
+
 
         System.out.println("/listProduct이 끝났습니다..");
 
         //네비게이션
         if (menu != null) {
             System.out.println("forward:/product/listProduct.jsp" + "합니다.");
+            if(image!=null) {
+                if (image.equals("ok")) {
+                    return "forward:/product/listProductImage.jsp";
+                }
+            }
             return "forward:/product/listProduct.jsp";
         } else {
             System.out.println("forward:/product/getProduct.jsp" + "합니다.");
+            if(image!=null) {
+                if (image.equals("ok")) {
+                    return "forward:/product/listProductImage.jsp";
+                }
+            }
             return "forward:/product/getProduct.jsp";
         }//end of else
     }//end of listProduct
@@ -340,7 +375,7 @@ public class ProductController {
 
         }
 
-        System.out.println("fileName :: "+fileNameList);
+        System.out.println("fileNameList :: "+fileNameList);
 
         //Business Logic
         product = productService.getProduct(product.getProdNo());

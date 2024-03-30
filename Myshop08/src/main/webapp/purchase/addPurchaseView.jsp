@@ -9,20 +9,34 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <title>Insert title here</title>
+	<%--제이쿼리--%>
+	<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 
+	<%--부트스트랩--%>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<%-- 부트스트랩 Dropdown Hover CSS JS--%>
+	<link href="/css/animate.min.css" rel="stylesheet">
+	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	<script
+			src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"
+			integrity="sha256-6XMVI0zB8cRzfZjqKcD01PBsAy3FlDASrlC8SxCpInY="
+			crossorigin="anonymous"></script>
 <script type="text/javascript" src="../javascript/calendar.js">
 </script>
 
 <script type="text/javascript">
-
+$(document).ready(function(){
 function fncAddPurchase() {
 	//Form 유효성 검증
-	
- 	var receiverName = document.addPurchase.receiverName.value;
-	var receiverPhone = document.addPurchase.receiverPhone.value;
-	var divyAddr = document.addPurchase.divyAddr.value;
-	var divyRequest = document.addPurchase.divyRequest.value;
-	var divyDate = document.addPurchase.divyDate.value;
+
+	var receiverName = $("form[name='detailForm'] input[name='receiverName']").val();
+	var receiverPhone = $("form[name='detailForm'] input[name='receiverPhone']").val();
+	var divyAddr = $("form[name='detailForm'] input[name='divyAddr']").val();
+	var divyRequest = $("form[name='detailForm'] input[name='divyRequest']").val();
+	var divyDate = $("form[name='detailForm'] input[name='divyDate']").val();
 	
 	if(receiverName == null || receiverName.length<1){
 		alert("구매자이름은 반드시 입력하여야 합니다.");
@@ -44,17 +58,34 @@ function fncAddPurchase() {
 		alert("배송희망일자는 반드시 입력하셔야 합니다.");
 		return;
 	}
-	document.addPurchase.submit();
-}
+
+	$("form[name='detailForm']")
+			.attr("method","post")
+			.attr("action","/purchase/addPurchase")
+			.submit();
+
+
+}//end of fncAddPurchase
+	$("[data-calendar]").click(function(){
+		console.log('안녕');
+		show_calendar('document.detailForm.divyDate',$("form[name='detailForm'] input[name='divyDate']").val());
+	});
+	$("button[data-addPurchase]").click(function() {
+		fncAddPurchase();
+	});
+	$("button[data-cancel]").click(function() {
+		history.go(-1);
+	});
+});
 /* function resetData(){
-	document.detailForm.reset();
+	document.detailForm.reset(); method="post" action="/purchase/addPurchase"
 } */
 </script>
 </head>
 
 <body>
 
-<form name="addPurchase" method="post" action="/purchase/addPurchase">
+<form name="detailForm">
 <input type="hidden" name="prodNo" value="${product.prodNo}">
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -213,8 +244,7 @@ function fncAddPurchase() {
 		<td width="200" class="ct_write01">
 			<input 	type="text" readonly="readonly" name="divyDate" class="ct_input_g"
 							style="width: 100px; height: 19px" maxLength="20"/>
-			<img 	src="../images/ct_icon_date.gif" width="15" height="15"	
-						onclick="show_calendar('document.addPurchase.divyDate', document.addPurchase.divyDate.value)"/>
+			<img 	src="../images/ct_icon_date.gif" width="15" height="15" data-calendar/>
 		</td>
 	</tr>
 	<tr>
@@ -231,9 +261,9 @@ function fncAddPurchase() {
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:fncAddPurchase();">구매</a>
-					</td>
+					<button type="button" data-addPurchase>
+						구매
+					</button>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
 					</td>
@@ -241,9 +271,9 @@ function fncAddPurchase() {
 					<td width="17" height="23">
 						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:history.go(-1)">취소</a>
-					</td>
+					<button type="button" data-cancel>
+						취소
+					</button>
 					<td width="14" height="23">
 						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
 					</td>

@@ -11,6 +11,6 @@ $(function() {
     $(".item:contains('logout')").on("click", function () {
         //Debug..
         //alert(  $( ".Depth03:contains('개인정보조회')" ).html() );
-        $(window.parent.frames["_parent"].document.location).attr("href", "/user/logout");
+        $(window.parent.document.location).attr("href", "/user/logout");
     });
 });

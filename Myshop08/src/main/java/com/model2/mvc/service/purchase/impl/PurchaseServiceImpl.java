@@ -29,6 +29,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     public Purchase getPurchase(int tranNo) throws Exception {
         return purchaseDao.getPurchase(tranNo);
     }
+    public Purchase getPurchaseProdNo(int prodNo) throws Exception {
+        return purchaseDao.getPurchaseProdNo(prodNo);
+    }
     public Map<String, Object> getPurchaseList(Map<String,Object> map) throws Exception {
         return purchaseDao.getPurchaseList(map);
     }
