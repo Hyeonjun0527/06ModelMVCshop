@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 import java.util.*;
 
-@Controller
+//@Controller
 @RequestMapping("/purchase/*")
-public class PurchaseController {
+public class PurchaseController원본 {
 
     ///Field
     @Autowired
@@ -56,7 +55,7 @@ public class PurchaseController {
     int pageSize;
 
     ///Constructor
-    public PurchaseController() {
+    public PurchaseController원본() {
         System.out.println(BLUE);
         System.out.println("\n 생성자 :: "+this.getClass()+"\n");
         System.out.println(RESET);
@@ -150,46 +149,67 @@ public class PurchaseController {
 
         System.out.println("ListPurchase ::"+materials);
 
-        Optional<Map<String, Object>> optionalMap = Optional.ofNullable(purchaseService.getPurchaseList(materials));
+        Map<String,Object> map = purchaseService.getPurchaseList(materials);
 
-        System.out.println("map값 :: " + optionalMap);
+        System.out.println("map값 :: " + map);
 
-        //널이였을때 대체동작
-        Map<String, Object> map = optionalMap.orElseGet(() -> {
-            Map<String, Object> emptyMap = new HashMap<>();
-            emptyMap.put("count", 0);
-            emptyMap.put("purchase", new Purchase());
-            return emptyMap;
-        });
+        //null이 아니도록 조치
+        if(map == null){
+            map = new HashMap<String, Object>();
+                map.put("count", 0);
+                map.put("purchase", new Purchase());
+        }
 
-        Map<String, Object> finalMap = map;
-        map = Optional.ofNullable(user.getRole())
+
+
+        int totalCount = map.get("count") != null ? (Integer)map.get("count") : 0;
+        List<Purchase> purchaseList = (List<Purchase>)map.get("list");
+
+        Page resultPage	=
+                new Page( currentPage, totalCount, pageUnit, pageSize);
+        System.out.println("ListPurchaseAction ::"+resultPage);
+
+        //유저면
+//        if(user.getRole()!=null) {
+//            if (user.getRole().equals("user")) {
+//                System.out.println("ListPurchaseAction :: 유저");
+//            } else {
+//                System.out.println("ListPurchaseAction :: 관리자");
+//                map = purchaseService.getSaleList(search);
+//            }
+//        }
+
+        Optional.ofNullable(user.getRole())
                 .map(role -> {
                     if (role.equals("user")) {
                         System.out.println("ListPurchaseAction :: 유저");
-                        return finalMap;
+                        return null;
                     } else {
                         System.out.println("ListPurchaseAction :: 관리자");
 //                        return purchaseService.getSaleList(search);
                         return null;
                     }
                 })
-                .orElse(map);
+                .ifPresent(result -> {
+                    if (result != null) {
+//                        map = result;
+                    }
+                });
 
-        int totalCount = (Integer) map.getOrDefault("count", 0);
-        List<Purchase> purchaseList = (List<Purchase>) map.get("list");
 
-        Page resultPage = new Page(currentPage, totalCount, pageUnit, pageSize);
-        System.out.println("ListPurchaseAction ::" + resultPage);
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("totalCount", totalCount);
+
+        Map<String,Object> model = new HashMap<>();
+        model.put("totalCount",totalCount);
         model.put("list", purchaseList);
         model.put("resultPage", resultPage);
+        //model.put("search", search);
 
         System.out.println("listPurchase :: 가 끝났습니다..");
 
-        return new ModelAndView("forward:/purchase/listPurchase.jsp", model);
+        return new ModelAndView(
+                "forward:/purchase/listPurchase.jsp",
+                model);
     }
 
     @PostMapping("/updatePurchase")

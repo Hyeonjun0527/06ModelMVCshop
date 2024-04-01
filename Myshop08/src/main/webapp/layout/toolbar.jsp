@@ -36,7 +36,12 @@
 	              <!--  회원관리 DrowDown -->
 	              <li class="dropdown">
 	                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+							 <c:if test="${user.role=='admin'}">
 	                         <span >회원관리</span>
+							 </c:if>
+							 <c:if test="${!(user.role=='admin')}">
+								 <span >내 정보</span>
+							 </c:if>
 	                         <span class="caret"></span>
 	                     </a>
 	                     <ul class="dropdown-menu">

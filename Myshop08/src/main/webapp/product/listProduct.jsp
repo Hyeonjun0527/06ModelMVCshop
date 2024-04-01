@@ -29,17 +29,22 @@
         body {
             padding-top: 50px;
         }
-
+        .size-set{
+            width:1140px;
+            margin-left: 15px;
+        }
         .max-size {
             max-width: 100px !important;
             max-height: 100px !important;
+        }
+        .no-padding{
+            padding: 0;
         }
     </style>
     <link href="/css/listProduct.css" rel="stylesheet" type="text/css">
 
 </head>
 <body class="default-font">
-
 <jsp:include page="/layout/toolbar.jsp" />
 <script>
 
@@ -65,7 +70,12 @@
             <p class="text-primary">
                 전체 ${totalCount} 건수, 현재 ${requestScope.resultPage.currentPage} 페이지
             </p>
+            <div class="col-md-12 no-padding">
+                <button type="button" class="btn btn-primary" data-toImage>이미지로 보기<span
+                        aria-hidden="true"> &nbsp&rarr;</span></button>
+            </div>
         </div>
+
         <form class="form-inline" name="detailForm">
 
             <div class="col-md-6 text-right">
@@ -120,11 +130,11 @@
                     <input type="radio" id="searchType3" name="searchType" value="3"/>
                     <label for="searchType3" class="button">가격 낮은순 검색</label>
 
-                    <input type="text" id="searchBoundFirst" name="searchBoundFirst"
+                    <input type="text" id="searchBoundFirst" name="searchBoundFirst" maxlength=9
                            value='${search.searchBoundFirst}'/>
                     부터
 
-                    <input type="text" id="searchBoundEnd" name="searchBoundEnd" value='${search.searchBoundEnd}'/>
+                    <input type="text" id="searchBoundEnd" name="searchBoundEnd" value='${search.searchBoundEnd}' maxlength=9/>
                     까지
 
                     <button type="button" data-searchBound>검색</button>
@@ -133,7 +143,7 @@
             </div>
         </form>
 
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped size-set">
             <thead>
             <tr>
                 <td>No</td>
@@ -156,7 +166,7 @@
                     </c:if>
                     <c:if test="${product.proTranCode=='a'}">
                     <td align="left">
-                        <button type="button" data-getProduct data-prodNo="${product.prodNo}">
+                        <button class="btn btn-primary" type="button" data-getProduct data-prodNo="${product.prodNo}">
                                 ${product.prodName}
                         </button>
                     </td>
@@ -197,8 +207,8 @@
 
         <jsp:include page="${pageContext.request.contextPath}/common/pageNavigator_new.jsp"/>
 
-            <div class="col-md-10"></div>
-            <div class="col-md-2 "><button type="button" class="btn btn-primary" data-toImage>이미지로 보기<span aria-hidden="true"> &nbsp&rarr;</span></button></div>
+
+
 
 
         <!--  페이지 Navigator 끝 -->

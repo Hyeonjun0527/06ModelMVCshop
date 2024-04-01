@@ -150,7 +150,7 @@
         <div class="text-center">
           <input type="text" id="daumInput" placeholder="랜덤으로 이미지가 나와요 ">
           <button class="grow_skew_backward btn-lg" id="submitButton">제출</button>
-          <img id="daumImage" src="" alt="이미지가 없습니다."/>
+          <img id="daumImage" src="" alt="이미지가 없습니다."  style="width:400px; height:auto;"/>
         </div>
 
 

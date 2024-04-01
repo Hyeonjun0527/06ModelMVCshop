@@ -8,7 +8,7 @@
 </head>
 <link rel="stylesheet" href="/css/font.css" type="text/css">
 <body class="default-font">
-	당신이 열어본 상품을 알고 있다
+	최근 본 상품 목록
 	<br>
 	<br>
 
@@ -26,8 +26,7 @@
 	<button style="border: 0px; padding: 0px;">
 		<div style="text-align: center;">
 			<a href="/cookie/removeHistory?navigationPage=history.jsp"
-				style="display: inline-block; background-color: #4CAF50; color: white; padding: 7px 10px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 5px; cursor: pointer;">쿠키
-				삭제</a>
+				style="display: inline-block; background-color: #4CAF50; color: white; padding: 7px 10px; text-align: center; text-decoration: none; font-size: 16px; border-radius: 5px; cursor: pointer;">히스토리 초기화</a>
 		</div>
 	</button>
 

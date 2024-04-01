@@ -75,7 +75,7 @@
 					p.price LIKE CONCAT(#{searchKeyword},'%')
 				</if>
 				<if test="searchBoundFirst != 0 and searchBoundEnd != 0">
-					p.price BETWEEN #{searchBoundFirst} AND #{searchBoundEnd}
+					AND p.price BETWEEN #{searchBoundFirst} AND #{searchBoundEnd}
 				</if>
 			</where>
 		</if>
@@ -151,7 +151,7 @@
 					p.price LIKE CONCAT(#{searchKeyword},'%')
 				</if>
 				<if test="searchBoundFirst != 0 and searchBoundEnd != 0">
-					p.price BETWEEN #{searchBoundFirst} AND #{searchBoundEnd}
+					AND p.price BETWEEN #{searchBoundFirst} AND #{searchBoundEnd}
 				</if>
 			</where>
 		</if>

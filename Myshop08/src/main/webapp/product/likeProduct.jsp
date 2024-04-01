@@ -166,6 +166,6 @@
 		</div>
 	</button>
 	<script type="text/javascript"  src="/javascript/variousSearch.js"></script>
-	
+<a href="/main.jsp">메인으로 이동하기</a>
 </body>
 </html>
