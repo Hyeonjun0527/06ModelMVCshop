@@ -130,11 +130,11 @@
                     <input type="radio" id="searchType3" name="searchType" value="3"/>
                     <label for="searchType3" class="button">가격 낮은순 검색</label>
 
-                    <input type="text" id="searchBoundFirst" name="searchBoundFirst"
+                    <input type="text" id="searchBoundFirst" name="searchBoundFirst" maxlength=9
                            value='${search.searchBoundFirst}'/>
                     부터
 
-                    <input type="text" id="searchBoundEnd" name="searchBoundEnd" value='${search.searchBoundEnd}'/>
+                    <input type="text" id="searchBoundEnd" name="searchBoundEnd" value='${search.searchBoundEnd}' maxlength=9/>
                     까지
 
                     <button type="button" data-searchBound>검색</button>

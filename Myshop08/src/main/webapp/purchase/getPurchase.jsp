@@ -67,5 +67,6 @@
 </table>
 </form>
 
+<a href="/main.jsp">메인으로 가기. 리로드 누르지 말아주세요</a>
 </body>
 </html>
