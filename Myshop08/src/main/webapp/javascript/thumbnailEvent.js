@@ -5,7 +5,11 @@ function makeThumbnail(JsonData) {
     console.log("JsonData.search.currentPage :: " + JsonData.search.currentPage);
         currentPage = JsonData.search.currentPage;
 
-    let i = currentPage;
+        if(currentPage===1){
+            currentPage++;
+        }
+
+    let No = (currentPage)*3 -2;
     let products = 0;
     let returnPage = '';
 
@@ -21,32 +25,47 @@ function makeThumbnail(JsonData) {
     $.each(JsonData.products, function (index, value) {
             const product = JsonData.products[index];
             console.log(`product :: `+JSON.stringify(product));
-            i++;
+
 
             returnPage += `
             <div class="col-sm-6 col-md-4">
-            <p>No : ${i}</p>
+            <p>No : ${No}</p>
                 <div class="thumbnail">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
                 `;//end of append
+        No++;
+        let k = 0;
 
             product.fileName?.split(",").forEach(function (fileName) {
                 if(fileName!='null'){
-                returnPage += `
-                        <div class="imgWrapper">
-                            <img class="threeD" src="/images/uploadFiles/"+${fileName}/>
+                    if(k==0) {
+                        returnPage += `
+                        <div class="item active imgWrapper">
+                            <img class="threeD" src="/images/uploadFiles/${fileName}"/>
                         </div>
                         `;
+                    } else {
+                        returnPage += `
+                        <div class="item imgWrapper">
+                            <img class="threeD" src="/images/uploadFiles/${fileName}"/>
+                        </div>
+                        `;
+                    }
                 }
+                k++;
             });
             if(!product.fileName){
                 returnPage += `
-                        <div class="imgWrapper">
+                        <div class="item active imgWrapper">
                             <img class="threeD" src="/images/uploadFiles/피카츄.jpg"/>
                         </div>
                 `;
             }
 
+
             returnPage += `
+                        </div></div>
                         <div class="caption">
                         <h3>상품명 : ${product.prodName}</h3>
                         <p>상품설명 : </p>
@@ -80,7 +99,7 @@ function makeThumbnail(JsonData) {
             }//end of if
             if (product.proTranCode == 'a') {
                 returnPage += `
-                <button type="button" class="btn btn-primary" data-getProduct
+                <button type="button" class="abled btn btn-primary" data-getProduct
                                     data-prodNo="${product.prodNo}">상품보기
                 </button>
                 `;

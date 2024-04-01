@@ -31,17 +31,36 @@
         body {
             padding-top: 50px;
         }
-        .thumbnail > .imgWrapper {
+        .no-padding{
+            padding: 0;
+        }
+        .thumbnail .carousel-inner>.imgWrapper.active.item{
             display: inline-block;
-            weight:240px;
+            width:300px;
             height:300px;
         }
+        .carousel-inner>.item.imgWrapper{
+            width: 300px;
+            height: 300px;
+            position: relative;
+            display:none;
+        }
 
-        .thumbnail > .imgWrapper > img.threeD {
+        .thumbnail .imgWrapper img.threeD {
             height: 100%;
             width: 100%;
             border-radius: 10px;
-            display: block;
+        }
+        img.threeD{
+            position:relative;
+        }
+        #carousel-example-generic, .custom{
+            height:300px;
+            width:300px;
+        }
+        .item ,.carousel-inner{
+            height:100%;
+            width:100%;
         }
     </style>
     <link href="/css/listProduct.css" rel="stylesheet" type="text/css">
@@ -64,11 +83,15 @@
 
     <div class="row">
         <%--이 폼태그를 전달하는 건 1,2,3,4클릭이나 검색할때만임. --%>
-        <div class="col-md-6 text-left">
-            <p class="text-primary">
-                전체 ${totalCount} 건수, 현재 ${requestScope.resultPage.currentPage} 페이지
-            </p>
-        </div>
+            <div class="col-md-6 text-left">
+                <p class="text-primary">
+                    전체 ${totalCount} 건수, 현재 ${requestScope.resultPage.currentPage} 페이지
+                </p>
+                <div class="col-md-12 no-padding">
+                    <button type="button" class="btn btn-primary" data-toTable>테이블로 보기<span aria-hidden="true"> &nbsp&rarr;</span>
+                    </button>
+                </div>
+            </div>
         <form class="form-inline" name="detailForm">
 
             <div class="col-md-6 text-right">
@@ -143,19 +166,40 @@
             <div class="col-sm-6 col-md-4">
                 <p>No : ${i}</p>
                 <div class="thumbnail">
+
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+
+                            <c:set var="k" value="0"/>
+
                     <c:forEach var="fileName" items="${fileNameListList[j]}">
                         <c:if test="${fileName!='null'}">
-                            <div class="imgWrapper">
-                                <img class="threeD" src="${pageContext.request.contextPath}/images/uploadFiles/${fileName}"/>
+                            <c:if test="${k==0}">
+                            <div class="item active imgWrapper">
+                                <img class="threeD" src="${pageContext.request.contextPath}/images/uploadFiles/${fileName}">
                             </div>
+                            </c:if>
+                            <c:if test="${k!=0}">
+                                <div class="item imgWrapper">
+                                    <img class="threeD" src="${pageContext.request.contextPath}/images/uploadFiles/${fileName}">
+                                </div>
+                            </c:if>
                         </c:if>
+                        <c:set var="k" value="${k+1}"/>
                     </c:forEach>
+
                     <c:if test="${fileNameListList[j]==null}">
-                        <div class="imgWrapper">
-                            <img class="threeD" src="${pageContext.request.contextPath}/images/uploadFiles/피카츄.jpg"/>
+                        <div class="item active imgWrapper">
+                            <img class="threeD" src="${pageContext.request.contextPath}/images/uploadFiles/피카츄.jpg">
                         </div>
                     </c:if>
+
+                        </div>
+                    </div>
+<%--                    여기서 carousel은 끝 --%>
                     <c:set var="j" value="${j+1}"/>
+
+
                     <div class="caption">
 
                         <h3>상품명 : ${product.prodName}</h3>
@@ -182,7 +226,7 @@
                         </p>
 
                         <c:if test="${product.proTranCode=='a'}">
-                            <button type="button" class="btn btn-primary" data-getProduct
+                            <button type="button" class="abled btn btn-primary" data-getProduct
                                     data-prodNo="${product.prodNo}">상품보기
                             </button>
                         </c:if>
@@ -200,10 +244,7 @@
         </c:forEach>
     </div>
 
-    <div class="col-md-12 text-right">
-        <button type="button" class="btn btn-primary" data-toTable>테이블로 보기<span aria-hidden="true"> &nbsp&rarr;</span>
-        </button>
-    </div>
+
 
 </div>
 
@@ -214,6 +255,18 @@
 
 
 <script>
+
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    $(document).ready(function() {
+        $(window).scrollTop(0);
+    });
+    // $(window).on('beforeunload', function() {
+    //     $(window).scrollTop(0);
+    // });
+
     let menu = '${param.menu}';
     let currentPage = +`${search.currentPage}`;
     let searchKeyword = '${search.searchKeyword}';
@@ -230,30 +283,38 @@
 
     $(document).ready(function () {
 
-        $('td.ct_btn01[data-search] button:contains("검색")').click(function () {
+
+        $(document).on('click', 'td.ct_btn01[data-search] button:contains("검색")', function () {
             fncGetList('1');
         });
-        $('button[data-searchBound]:contains("검색")').click(function () {
+
+        $(document).on('click', 'button[data-searchBound]:contains("검색")', function () {
             fncGetList('${resultPage.currentPage}');
         });
-        $('button[data-getProduct]').click(function () {
+
+        $(document).on('click', 'button[data-getProduct].abled', function () {
             let prodNo = $(this).data('prodno');
             window.location.href = "/product/getProduct?prodNo=" + prodNo + "&menu=${menu}";
         });
-        $('button[data-update]').click(function () {
+
+        $(document).on('click', 'button[data-update]', function () {
             let prodNo = $(this).data('prodno');
             window.location.href = "/purchase/updateTranCode?prodNo=" + prodNo + "&navigationPage=listProduct&menu=manage";
-        })
-        $('button[data-setLike]').click(function () {
+        });
+
+        $(document).on('click', 'button[data-setLike]', function () {
             let prodNo = $(this).data('prodno');
             window.location.href = "/product/setLikeProduct?prodNo=" + prodNo + "&menu=${menu}&currentPage=${resultPage.currentPage}";
-        })
-        $('input[name=searchType]').click(function () {
+        });
+
+        $(document).on('click', 'input[name=searchType]', function () {
             fncGetList('1');
-        })
-        $('button[data-toTable]').click(function () {
+        });
+
+        $(document).on('click', 'button[data-toTable]', function () {
             window.location.href = "/product/listProduct?menu=${menu}";
-        })
+        });
+
 
         $('input[name="searchKeyword"]').autocomplete({
             source: function (request, response) {
@@ -357,47 +418,46 @@
         let imgWrapper = $("div.imgWrapper");
         let oneTime = true;
 
-        imgWrapper.on('mouseIn', function (e) {
-            console.log("얘는 들어올때 한번만 실행되어야 함.");
-            //  imgWrapper.css('transition', 'transform 0.5s');
-        });
-
-        imgWrapper.on('mousemove', function (e) {
-            let num = 10;
-            let x = e.offsetX//0~240  0일때 rotateY(20deg) 240일때 rotateY(-20deg)
-            // 20 = 0*a + b  -20 = 240*a + b
-            // b= 20 a = -20*2/240
-
-            let y = e.offsetY//0~300 0일때 rotateX(-20deg) 300일때 rotateX(20deg)
-            // -20 = 0*a + b  20 = 300*a + b
-            // b = -20 a= 40*2/240
-
-            console.log(x, y);
-
-            let rotateY = -num*2 / 240 * x + num
-            let rotateX = num*2 / 300 * y - num
-            console.log(rotateY, rotateX);
-
-            $(this).css('transform', 'perspective(350px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)');
-
-            if (oneTime) {
-                $(this).css('transition', 'transform 0.3s');
-                oneTime = false;
-            }
-            console.log($(this)[0].style.transform);
-        });
-
-        imgWrapper.on('mouseout', function (e) {
-            oneTime = true;
-            $(this).css('transition', 'transform 0.5s');
-            $(this).css('transform', 'perspective(350px) rotateX(' + 0 + 'deg) rotateY(' + 0 + 'deg)');
-            console.log($(this)[0].style.transform);
-        });
-        imgWrapper.on('transitionend', function () {
-            // transition 효과가 끝나면 transition 속성 제거
-            $(this).css('transition', '');
-        });
-
+        // imgWrapper.on('mouseIn', function (e) {
+        //     console.log("얘는 들어올때 한번만 실행되어야 함.");
+        //     //  imgWrapper.css('transition', 'transform 0.5s');
+        // });
+        //
+        // imgWrapper.on('mousemove', function (e) {
+        //     let num = 10;
+        //     let x = e.offsetX//0~240  0일때 rotateY(20deg) 240일때 rotateY(-20deg)
+        //     // 20 = 0*a + b  -20 = 240*a + b
+        //     // b= 20 a = -20*2/240
+        //
+        //     let y = e.offsetY//0~300 0일때 rotateX(-20deg) 300일때 rotateX(20deg)
+        //     // -20 = 0*a + b  20 = 300*a + b
+        //     // b = -20 a= 40*2/240
+        //
+        //     console.log(x, y);
+        //
+        //     let rotateY = -num*2 / 240 * x + num
+        //     let rotateX = num*2 / 300 * y - num
+        //     console.log(rotateY, rotateX);
+        //
+        //     $(this).css('transform', 'perspective(350px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)');
+        //
+        //     if (oneTime) {
+        //         $(this).css('transition', 'transform 0.3s');
+        //         oneTime = false;
+        //     }
+        //     console.log($(this)[0].style.transform);
+        // });
+        //
+        // imgWrapper.on('mouseout', function (e) {
+        //     oneTime = true;
+        //     $(this).css('transition', 'transform 0.5s');
+        //     $(this).css('transform', 'perspective(350px) rotateX(' + 0 + 'deg) rotateY(' + 0 + 'deg)');
+        //     console.log($(this)[0].style.transform);
+        // });
+        // imgWrapper.on('transitionend', function () {
+        //     // transition 효과가 끝나면 transition 속성 제거
+        //     $(this).css('transition', '');
+        // });
 
         let isLoading = false;
         $(window).scroll(function() {
@@ -448,14 +508,17 @@
                     }).done(function (data) {
                     console.log("받은 데이터" + JSON.stringify(data));
 
-                    setTimeout(function () {
-                        window.scrollTo(0,scrollTop-offsetReposition)
-                        $('.loading-container').hide();
-                        makeThumbnail(data);
-                        console.log("currentPage :: "+currentPage);
-                        isLoading = false;
-                    }, 800);
-
+                    setTimeout(function() {
+                            $('.loading-container').hide();
+                    },800);
+                    if (data.products && data.products.length > 0) {
+                        setTimeout(function () {
+                            window.scrollTo(0, scrollTop - offsetReposition)
+                            makeThumbnail(data);
+                            console.log("currentPage :: " + currentPage);
+                            isLoading = false;
+                        }, 800);
+                    }
                     }).fail(function(jqXHR, textStatus, errorThrown){
                         console.log('실패');
                         console.log(jqXHR);

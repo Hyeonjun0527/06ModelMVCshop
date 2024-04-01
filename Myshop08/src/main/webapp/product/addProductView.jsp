@@ -26,7 +26,7 @@
 			// var detail = document.detailForm.prodDetail.value;
 			// var manuDate = document.detailForm.manuDate.value;
 			// var price = document.detailForm.price.value;
-			var name = $("input[name='userId']").val();
+			var name = $("input[name='prodName']").val();
 			var detail = $("input[name='prodDetail']").val();
 			var manuDate = $("input[name='manuDate']").val();
 			var price = $("input[name='price']").val();
